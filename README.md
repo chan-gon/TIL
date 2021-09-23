@@ -14,6 +14,7 @@
  * [참조 타입](https://github.com/chan-gon/TIL/blob/master/Java/%EC%B0%B8%EC%A1%B0%20%ED%83%80%EC%9E%85.md)
  * [클래스_1](https://github.com/chan-gon/TIL/blob/master/Java/%ED%81%B4%EB%9E%98%EC%8A%A4_1.md)
  * [클래스_2](https://github.com/chan-gon/TIL/blob/master/Java/%ED%81%B4%EB%9E%98%EC%8A%A4_2.md)
+ * [상속](https://github.com/chan-gon/TIL/blob/master/Java/%EC%83%81%EC%86%8D.md)
 
 ### JavaScript
  * [변수](https://github.com/chan-gon/TIL/blob/master/JavaScript/%EB%B3%80%EC%88%98.md)
