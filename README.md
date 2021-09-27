@@ -16,6 +16,7 @@
  * [클래스_2](https://github.com/chan-gon/TIL/blob/master/Java/%ED%81%B4%EB%9E%98%EC%8A%A4_2.md)
  * [상속](https://github.com/chan-gon/TIL/blob/master/Java/%EC%83%81%EC%86%8D.md)
  * [인터페이스](https://github.com/chan-gon/TIL/blob/master/Java/%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4.md)
+ * [중첩 클래스와 중첩 인터페이스](https://github.com/chan-gon/TIL/blob/master/Java/%EC%A4%91%EC%B2%A9%20%ED%81%B4%EB%9E%98%EC%8A%A4%EC%99%80%20%EC%A4%91%EC%B2%A9%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4.md)
 
 ### JavaScript
  * [변수](https://github.com/chan-gon/TIL/blob/master/JavaScript/%EB%B3%80%EC%88%98.md)
