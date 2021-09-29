@@ -610,10 +610,10 @@ public class Main {
         System.out.println("사용자 홈디렉토리: " + userHome);
     }
 }
+결과)
+본인의 운영체제, 설정한 사용자 이름 및 홈디렉토리가 출력된다.
 </code>
 </pre>
-결과)
-- 본인의 운영체제, 설정한 사용자 이름 및 홈디렉토리가 출력된다. -
 
 ### 환경 변수 읽기(getenv())
 대부분의 운영체제는 실행되는 프로그램들에게 유용한 정보를 제공할 목적으로 환경 변수(Environment Variable)를 제공한다. 환경 변수는 프로그램상의 변수가 아니라 운영체제에서 이름(Name)과 값(Value)으로 관리되는 문자열 정보다. 
@@ -629,10 +629,11 @@ public class Main {
         System.out.println(javaHome);
     }
 }
-</code>
-</pre>
 결과)
 C:\Program Files\Java\jdk1.8.0_301 // 본인의 경우 이렇게 출력됨. 개개인마다 다를 수 있음.
+</code>
+</pre>
+
 
 # 출처
 * [이것이 자바다](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968481475&orderClick=LAG&Kc=)
