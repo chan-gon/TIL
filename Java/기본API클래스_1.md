@@ -637,5 +637,5 @@ C:\Program Files\Java\jdk1.8.0_301 // 본인의 경우 이렇게 출력됨. 개�
 
 # 출처
 * [이것이 자바다](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968481475&orderClick=LAG&Kc=)
-* [Java.util.Objects](https://docs.oracle.com/javase/8/docs/api/java/util/Objects.html#hash-java.lang.Object...-)
-* [Java.lang.System](https://docs.oracle.com/javase/7/docs/api/java/lang/System.html)
+* [java.util.Objects](https://docs.oracle.com/javase/8/docs/api/java/util/Objects.html#hash-java.lang.Object...-)
+* [java.lang.System](https://docs.oracle.com/javase/7/docs/api/java/lang/System.html)

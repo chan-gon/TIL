@@ -33,3 +33,4 @@
  * [함수_2](https://github.com/chan-gon/TIL/blob/master/JavaScript/%ED%95%A8%EC%88%98_2.md)
  * [스코프](https://github.com/chan-gon/TIL/blob/master/JavaScript/%EC%8A%A4%EC%BD%94%ED%94%84.md)
  * [전역 변수의 문제점](https://github.com/chan-gon/TIL/blob/master/JavaScript/%EC%A0%84%EC%97%AD%20%EB%B3%80%EC%88%98%EC%9D%98%20%EB%AC%B8%EC%A0%9C%EC%A0%90.md)
+ *[let과 const 키워드](https://github.com/chan-gon/TIL/blob/master/JavaScript/let%EA%B3%BC%20const%20%ED%82%A4%EC%9B%8C%EB%93%9C.md)
