@@ -330,8 +330,243 @@ public class Main {
 </code>
 </pre>
 
+## StringTokenizer 클래스
+문자열이 특정 구분자(delimiter)로 연결되어 있는 경우, 구분자를 기준으로 부분 문자열을 분리하기 위해서는 String의 split() 메소드를 이용하거나, java.util 패키지의 StringTokenizer 클래스를 이용할 수 있다. split()은 정규 표현식으로 구분하고, StringTokenizer는 문자로 구분한다는 차이점이 있다.
+
+### split() 메소드
+String 클래스의 split() 메소드는 정규 표현식을 구분자로 해서 문자열을 분리한 후, 배열에 저장하고 리턴한다.
+<pre>
+<code>
+String[] result = "문자열".split("정규표현식");
+</code>
+</pre>
+
+split() 메소드를 사용해 &, 쉼표(,), - 를ㄹ 제외하고 순수 문자열만 뽑아내고 싶은 경우 다음과 같이 사용하면 된다.
+<pre>
+<code>
+public class Main {
+    public static void main(String[] args) {
+        String text = "트라이엄프&혼다,가와사키,야마하-스즈키";
+
+        String[] names = text.split("&|,|-");
+
+        for(String name : names) {
+            System.out.println(name);
+        }
+    }
+}
+결과)
+트라이엄프
+혼다
+가와사키
+야마하
+스즈키
+</code>
+</pre>
+
+### StringTokenizer 클래스
+문자열이 한 종류의 구분자로 연결되어 있을 경우 StringTokenizer 클래스로 손쉽게 문자열(토큰_token)을 분리해 낼 수 있다. StringTokenizer 객체를 생성할 때 첫 번째 매개값으로 전체 문자열을 주고, 두 번째 매개값으로 구분자를 주면 된다.
+
+<pre>
+<code>
+StringTokenizer st = new StringTokenizer("문자열", "구분자");
+</code>
+</pre>
+
+구분자를 생략하면 공백(Space)이 기본 구분자가 된다. 예를 들어 문자열이 "/"로 구분되어 있을 경우 다음과 같이 StringTokenizer 객체를 생성한다.
+<pre>
+<code>
+Stirng text = "가/나/다/라";
+StringTokenizer st = new StringTokenizer(text, "/");
+</code>
+</pre> 
+
+StringTokenizer 객체가 생성되면 부분 문자열을 분리해 낼 수 있는데, 다음 메소드들을 이용해서 전체 토큰 수, 남아 있는 토큰 여부를 확인한 다음 토큰을 읽는다.
+
+| 메소드 | 설명 |
+| --- | --- |
+| int / countTokens() | 꺼내지 않고 남아 있는 토큰의 수 |
+| boolean / hasMoreTokens() | 남아 있는 토큰이 있는지 여부 |
+| String / nextToken() | 토큰을 하나씩 꺼내옴 | 
+
+nextToken() 메소드로 토큰을 하나씩 꺼내오면 StringTokenizer 객체에는 토큰이 하나씩 없어진다. StringTokenizer 객체에서 더 이상 가져올 토큰이 없다면 nextToken() 메소드는 java.util.NoSuchElementException 예외를 발생시킨다. 따라서 nextToken() 메소드 이전에 hasMoreTokens() 메소드로 꺼내올 토큰이 있는지 확인 후 nextToken() 메소드로 토큰을 가져오도록 조건을 설정하는게 좋다. 
+
+<pre>
+<code>
+public class Main {
+    public static void main(String[] args) {
+        String text = "가/나/다";
+
+        // 전체 토큰 수를 얻어 for 문으로 리턴
+        StringTokenizer st = new StringTokenizer(text, "/");
+        int countTokens = st.countTokens();
+        for(int i = 0; i<countTokens; i++) {
+            String token = st.nextToken();
+            System.out.println(token);
+        }
+
+        // 남아 있는 토큰을 확인하고 while문으로 루핑
+        st = new StringTokenizer(text, "/");
+        while(st.hasMoreTokens()) {
+            String token = st.nextToken();
+            System.out.println(token);
+        }
+    }
+}
+</code>
+</pre> 
+
+## StrinBuffer, StringBuilder 클래스
+문자열을 저장하는 String은 내부의 문자열을 수정할 수 없다. String의 replace() 메소드는 내부의 문자를 변경하는 것이 아니라, 변경된 새로운 문자열을 리턴한다. String 객체를 + 연산할 경우에도 마찬가지다.
+
+<pre>
+<code>
+String data = "ABC";
+data += "DEF";
+</code>
+</pre>
+위 예제에서 "ABC"에 "DEF"가 추가되었기 때문에 "ABCDEF"라는 하나의 String 객체로 변경되었다고 생각할 수 있지만, **String 객체는 내부 데이터를 수정할 수 없으므로** "ABC"에 "DEF"가 추가된 "ABCDEF"라는 새로운 String 객체가 생성된다. 그리고 data 변수는 새로 생성된 String 객체를 참조하게 된다.
+
+![String 객체는 내부 데이터를 수정할 수 없다](./image/java_chapter11_12.png)
+
+문자열을 결합하는 + 연산자를 남용하면 그만큼 string 객체의 수가 늘어나기 때문에 프로그램 성능 저하의 원인이 될 수 있다. 문자열 변경 작업이 잦을 경우 String 클래스 사용 보다는 java.lang 패키지의 StringBuffer 또는 StringBuilder 클래스를 사용하는 것이 좋다. 이 두 클래스는 내부 버퍼(buffer_데이터를 임시로 저장하는 메모리)에 문자열을 저장해 두고 그 안에서 추가, 수정, 삭제 작업을 할 수 있도록 설게되어 있다. String처럼 새로운 객체를 만들지 않고도 문자열을 조작할 수 있는 것이다.
+
+StringBuffer와 StringBuilder의 사용법은 동일하지만 차이점은 StringBuffer는 멀티 스레드 환경에서 사용할 수 있도록 동기화가 적용되어 있어 스레드에 안전하다. 반면 StringBuilder는 단일 스레드 환경에서만 사용하도록 설계되어 있다. 
+
+StringBuilder 클래스의 기본 생성자인 StringBuilder()는 16개의 문자들을 저장할 수 있는 초기 버퍼를 만들고, StringBuilder(int capacity) 생성자는 capacity로 주어진 개수만큼 문자들을 저장할 수 있는 초기 버퍼를 만든다. StringBuilder는 버퍼가 부족할 경우 자동으로 버퍼 크기를 늘리기 때문에 초기 버퍼의 크기는 그다지 중요하지 않다. 
+StringBuilder(String str) 생성자는 str로 주어진 매개값을 버퍼의 초기값으로 저장한다.
+
+<pre>
+<code>
+StringBuilder sb = new StringBuilder();
+StringBuilder sb = new StringBuilder(16);
+StringBuilder sb = new StringBuilder("Java");
+</code>
+</pre>
+
+StringBuilder 클래스의 주요 메소드는 다음과 같다.
+
+![StringBuilder 클래스의 주요 메소드](./image/java_chapter11_13.png)
+
+출처 : https://palpit.tistory.com/879
+
+append(), insert() 메소드는 매개 변수가 다양한 타입으로 오버로딩되어 있기 때문에 대부분의 값을 문자로 추가 또는 삽입할 수 있다. 자세한 내용은 ![StringBuilder 클래스 메소드](https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html)에서 확인 가능하다.
+
+<pre>
+<code>
+public class Main {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("대학 ");
+        sb.append("생활의 ");
+        sb.append("이해");
+        System.out.println(sb.toString());
+
+        sb.insert(3, "1학년 "); // (공백포함)index 3의 위치 뒤에 문자 삽입
+        System.out.println(sb.toString()); // 대학 1학년 생활의 이해
+
+        sb.replace(0, 6, "사회 1년차"); // sb.replace(시작 인덱스, 마지막 인덱스, 대치할 문자)
+        System.out.println(sb.toString()); // 사회 1년차 생활의 이해(시작 인덱스 ~ 마지막 인덱스 이전 까지의 문자열 대치)
+
+        int length = sb.length();
+        System.out.println("총문자수: " + length); // 13
+
+        String result = sb.toString(); // 버퍼에 있는 것을 String 타입으로 리턴
+        System.out.println(result); // 사회 1년차 생활의 이해
+    }
+}
+</code>
+</pre>
+
+## 정규 표현식과 Pattern 클래스
+문자열이 정해져 있는 형식(정규 표현식_Regular Expression)으로 구성되어 있는 검증해야 하는 경우가 있다. 예를 들어 이메일, 전화번호를 사용자가 제대로 입력했는지 검증해야 할 때 정규 표현식과 비교한다. 
+
+### 정규 표현식 작성 방법
+정규 표현식 작성 방법은 java.util.regex.Pattern 클래스를 찾아 ![Summary of regular-expression constructs](https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html)을 참조하면 되는데, 한눈에 정보가 들어오지 않는다.(보기 난해하다)
+간단히 말해서 정규 표현식은 문자 또는 숫자 기호와 반복 기호가 결합된 문자열이다. 
+
+![자바 정규표현식](./image/java_chapter11_14.png)
+
+출처 : https://palpit.tistory.com
+
+다음은 02-123-1234 또는 010-1234-5678과 같은 전화번호를 위한 정규 표현식이다.
+<pre>
+<code>
+(02|010)-\d{3,4}-\d{4}
+</code>
+</pre>
+위 코드에 대한 설명이다.
+
+| 기호 | 설명 |
+| --- | --- |
+| (02|010) | 02 또는 010 |
+| - | - 포함 |
+| \d{3,4} | 3자리 또는 4자리 숫자 |
+| - | - 포함 |
+| \d{4} | 4자리 숫자 |
+
+다음은 triumph@naver.com과 같은 이메일을 위한 정규 표현식이다.
+<pre>
+<code>
+\w+@\w+\.\w+(\.\w+)?
+</code>
+</pre>
+
+| 기호 | 설명 |
+| --- | --- |
+| \w+ | 한 개 이상의 알파벳 또는 숫자 |
+| @ | @ |
+| \w+ | 한 개 이상의 알파벳 또는 숫자 |
+| \. | . |
+| \w+ | 한 개 이상의 알파벳 또는 숫자 |
+| (\.\w+)? | \.\w+ 이 없거나 한 번 더 올 수 있음 |
+
+주의점은 \.과 .은 다르다는 것이다. \.은 문자로서의 점(.)을 말하지만 .은 모든 문자 중에서 한 개의 문자를 뜻한다.
+
+### Pattern 클래스
+문자열을 정규 표현식으로 검증하는 기능은 java.util.regex.Pattern 클래스의 정적 메소드인 matches() 메소드가 제공한다.
+<pre>
+<code>
+boolean result = Pattern.matches("정규식", "검증할 문자역");
+</code>
+</pre>
+첫번째 매개값은 정규 표현식(regex)이고, 두 번째 매개값은 검증할 문자열(CharSequence)이다. 검증 후 결과가 boolean 타입으로 리턴된다.
+다음 예제는 전화번호와 이메일을 검증하는 코드이다.
+<pre>
+<code>
+public class Main {
+    public static void main(String[] args) {
+        String regExp = "(02|010)-\\d{3,4}-\\d{4}";
+        String data = "010-123-4567";
+        boolean result = Pattern.matches(regExp, data);
+        if(result) {
+            System.out.println("정규식과 일치");
+        } else {
+            System.out.println("정규식화 불일치");
+        }
+
+        regExp = "\\w+@\\w+\\.\\w+(\\.\\w+)?";
+        data = "triumph@navercom";
+        result = Pattern.matches(regExp, data);
+        if(result) {
+            System.out.println("정규식과 일치");
+        } else {
+            System.out.println("정규식화 불일치");
+        }
+    }
+}
+결과)
+정규식과 일치
+정규식화 불일치
+</code>
+</pre>
+이메일 검증에서 '정규식화 불일치' 메시지가 출력되는 이유는, navercom이라고 되어 있기 때문이다. 반드시 점(.)과 한 개 이상의 알파벳 또는 숫자가 포함되어야 하므로 naver.com이라고 해야 정규식에 맞게 된다.
+
 # 출처
 * [이것이 자바다](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968481475&orderClick=LAG&Kc=)
 * [java.lang.Object](https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html)
 * [java.lang.Class](https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html)
 * [java.lang.String](https://docs.oracle.com/javase/7/docs/api/java/lang/String.html)
+* [java.util.StringTokenizer](https://docs.oracle.com/javase/7/docs/api/java/util/StringTokenizer.html)
+* [Package java.lang](https://docs.oracle.com/javase/7/docs/api/java/lang/package-summary.html)
