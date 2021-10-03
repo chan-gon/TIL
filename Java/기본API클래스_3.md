@@ -283,8 +283,161 @@ public class Main {
 선택 번호 6개를 얻기 위해 Random 객체를 생성할 때 종자값으롤 3을 주었고, 당첨 번호 6개를 얻기 위해 Random 객체를 생성할 때 종자값으로 5를 주었다. 서로 다른 종자값을 주었기 때문에 선택 번호와 당첨 번호는 다를 수밖에 없다. 만약 종자값이 같으면 같은 난수를 얻기 때문에 선택 번호와 당첨 번호가 동일하게 된다.
 종자값을 매개값으로 설정하지 않아도 자동으로 설정되지만, 로또 번호는 선택 번호와 당첨 번호가 같도록 할 확률을 낮추어야 하기 때문에 의도적으로 매개값을 설정했다.
 
+## Date, Calendar 클래스
+Date, Calendar 클래스는 시스템의 날짜 및 시각을 읽을 수 있다. 두 클래스 모두 java.util 패키지에 포함되어 있다.
+
+### Date 클래스
+Date는 날짜를 표현한다. Date 클래스는 객체 간에 날짜 정보를 주고 받을 때 주로 사용된다. Date 클래스에는 여러 개의 생성자가 선언되어 있지만 대부분 Deprecated(비권장)되어 현재는 Date() 생성자만 주로 사용한다. 
+
+![ate 클래스에는 여러 개의 생성자가 선언되어 있지만 대부분 Deprecated(비권장)되어 현재는 Date() 생성자만 주로 사용한다.](./image/java_chapter11_18.png)
+
+Date() 생성자는 컴퓨터의 현재 날짜를 읽어 Date 객체로 만든다.
+
+> Date now = new Date();
+
+현재 날짜를 문자열로 얻고 싶으면 toString() 메소드를 사용한다. 이 메소드는 영문으로 된 날짜를 리턴하는데 만약 특정 문자열 포맷으로 얻고 싶다면 java.text.SimpleDateFormat 클래스를 이용한다. 
+
+<pre>
+<code>
+public class Main {
+    public static void main(String[] args) {
+
+        Date now = new Date();
+        String strNow1 = now.toString();
+        System.out.println(strNow1); // Sun Oct 03 19:56:20 KST 2021
+
+        SimpleDateFormat sdf = new SimpleDateFormat("오늘은 yyyy년의 w주차이며 D번째 날입니다.");
+        String strNow2 = sdf.format(now);
+        System.out.println(strNo2); // 오늘은 2021년의 41주차이며 276번째 날입니다.
+    
+    }
+}
+</code>
+</pre>
+
+### Calendar 클래스
+Calendar 클래스는 달력을 표현한다. 이 클래스는 추상(abstract) 클래스이므로 new 연산자를 사용해서 인스턴스를 생성할 수 없다. 그 이유는 날짜와 시간을 계산하는 방법이 지역과 문화, 나라에 따라 다르기 때문이다. Calendar 클래스에는 날짜와 시간을 계산하는데 꼭 필요한 메소드들만 선언되어 있고 특정한 역법(날짜와 시간을 매기는 방법)을 따르는 계산 로직은 하위 클래스에서 구현하도록 되어 있다. 특별한 역법을 사용하는 경우가 아니라면 직접 하위 클래스를 만들 필요는 없고 Calendar 클래스의 정적 메소드인 getInstance() 메소드를 이용하면 현재 운영체제에 설정된 시간대를 기준으로 Calendar 하위 객체를 얻을 수 있다.
+
+> Calendar now = Calendar.getInstance();
+
+Calendar 객체를 얻었다면 get() 메소드를 이용해서 날짜와 시간에 대한 정보를 얻을 수 있다.
+
+<pre>
+<code>
+int year = now.get(Calendar.YEAR);
+int month = now.get(Calendar.MONTH) + 1;
+int day = now.get(Calendar.DAY_OF_MONTH);
+int week = now.get(Calendar.DAY_OF_WEEK);
+int amPm = now.get(Calendar.AM_PM);
+int hour = now.get(Calendar.HOUR);
+int minute = now.get(Calendar.MINUTE);
+int second = now.get(Calendar.SECOND);
+</code>
+</pre>
+
+get() 메소드를 호출할 때 사용한 매개값은 모두 Calendar 클래스에 선언되어 있는 상수들이다.
+
+다른 시간대에 해당하는 날짜와 시간을 출력하려면 Calendar 클래스의 오버로딩된 다른 getInstance() 메소드를 이용한다. 알고 싶은 시간대의 java.util.TimeZone 객체를 얻고, Calendar.getInstance() 메소드의 매개값으로 넘겨주면 된다.
+
+<pre>
+<code>
+TimeZone timeZone = TimeZone.getTimeZone("America/Los_Angeles");
+Calendar now = Calendar.getInstance(timeZone);
+</code>
+</pre>
+
+TimeZone.getTimeZone()의 매개값은 TimeZone 클래스의 정적 메소드인 ![getAvailableIDs()](https://www.geeksforgeeks.org/timezone-getavailableids-method-in-java-with-examples/)를 호출하여 얻은 시간대 문자열 중 하나를 사용하면 된다. getAvailableIDs() 메소드의 리턴 타입은 String 배열이기 때문에 다음 프로그램을 이용해서 시간대 문자열 목록을 볼 수 있다.
+<pre>
+<code>
+public class Main {
+    public static void main(String[] args) {
+
+        String[] id_arr = TimeZone.getAvailableIDs();
+        for(String id : id_arr) {
+            System.out.println(id);
+        }
+    
+    }
+}
+결과)
+Africa/Abidjan
+Africa/Accra      
+Africa/Addis_Ababa
+Africa/Algiers    
+Africa/Asmara     
+...
+</code>
+</pre>
+
+## Format 클래스
+Format 클래스는 다양한 데이터 타입을 개발자가 원하는 방식으로 출력할 수 있도록 돕는다. 
+
+### 숫자 형식 클래스(DecimalFormat)
+숫자 데이터를 원하는 형식으로 표현하기 위해서 패턴을 사용하는데 다음 표는 패턴의 예를 보여준다.
+
+![숫자 형식 클래스](./image/java_chapter11_19.png)
+
+출처 : https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=rain483&logNo=220590976463
+
+적용할 패턴을 선택한 후 DecimalFormat 생성자 매개값으로 지정해서 객체를 생성한다. 그리고 format() 메소드를 호출해서 패턴이 적용된 문자열을 얻으면 된다.
+
+### 날짜 형식 클래스(SimpleDateFormat)
+Date 클래스의 toString() 메소드는 영문으로된 날짜를 리턴하는데 만약 특정 문자열 포맷으로 얻고 싶다면 java.text.SimpleDateFormat 클래스를 이용한다. SimpleDateFormat 클래슨느 날짜를 원하는 형식으로 표현하기 위해 패턴을 사용한다. 아래 표는 SimpleDateFormat의 패턴 작성에 사용되는 기호들이다.
+
+![날짜 형식 클래스](./image/java_chapter11_20.png)
+
+패턴은 자릿수에 맞게 기호를 반복해서 작성 가능하다. 예를 들어 yyyy는 년도를 4자리로 표시한다. MM, dd는 각각 달과 일을 2자리로 표시한다. 
+적용 패턴을 작성했다면 이 패턴을 SimpleDateFormat의 생성자 매개값으로 지정해서 객체를 생성하면 된다. 그리고 나서 format() 메소드를 호출해서 패턴이 적용된 문자열을 얻으면 된다.
+
+<pre>
+<code>
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+String strDate = sdf.format(new Date());
+</code>
+</pre>
+
+<pre>
+<code>
+public class Main {
+    public static void main(String[] args) {
+        Date now = new Date();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(sdf.format(now));
+
+    }
+}
+</code>
+</pre>
+
+### 문자열 형식 클래스(MessageFormat)
+MessageFormat 클래스는 문자열에 데이터가 들어갈 자리를 표시해 두고 프로그램이 실행하면서 동적으로 데이터를 삽입해 문자열을 완성시킬 수 있다.
+MessageFormat은 정적 format() 메소드를 호출해서 완성된 문자열을 리턴한다. format() 메소드의 첫 번째 매개값은 매개 변수화된 문자열을 지정하고, 두 번째 이후의 매개값은 인덱스 순서에 맞게 값을 나열하면 된다.
+
+<pre>
+<code>
+public class Main {
+    public static void main(String[] args) {
+        
+        String id = "good";
+        String name = "Park";
+        String tel = "010-123-4567";
+
+        String text = "회원 ID:{0} \n회원 이름:{1} \n회원 전화:{2}";
+        String result1 = MessageFormat.format(text, id, name, tel);
+        
+        String sql = "insert into member values( {0}, {1}, {2} )";
+        Object[] arguments = { "'good'", "'Park'", "'010-123-4567'" };
+        String result2 = MessageFormat.format(sql, arguments);
+
+    }
+}
+</code>
+</pre>
 
 # 출처
 * [이것이 자바다](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968481475&orderClick=LAG&Kc=)
 * [java.util.Arrays](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Arrays.html)
 * [java.lang.Math](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html)
+* [java.util.Date](https://docs.oracle.com/javase/8/docs/api/java/util/Date.html)
+* [java.util.Calendar](https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html)
