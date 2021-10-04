@@ -435,9 +435,105 @@ public class Main {
 </code>
 </pre>
 
+## java.time 패키지
+Date 클래스는 단순히 특정 시점의 날짜 정보를 저장하고, Calendar 클래스는 날짜와 시간 정보를 얻는다. 하지만 날짜와 시간을 조작하거나 비교하는 기능이 불충분하다. 그래서 자바 8부터 날짜와 시간을 나타내는 여러 가지 API를 새롭게 추가했다. 이 API는 java.util 패키지에 없고 별도로 java.time 패키지와 하위 패키지로 제공된다.
+
+![java.time](./image/java_chapter11_21.png)
+
+출처 : https://palpit.tistory.com/entry/Java-%EC%9E%90%EB%B0%94-%EA%B8%B0%EB%B3%B8-API-javatime-Package
+
+### 날짜와 시간 객체 생성
+java.time 패키지에는 날짜와 시간을 표현하는 클래스가 있다. 대표적으로 다음과 같다.
+
+![java.time](./image/java_chapter11_22.png)
+
+출처 : https://palpit.tistory.com/entry/Java-%EC%9E%90%EB%B0%94-%EA%B8%B0%EB%B3%B8-API-javatime-Package
+
+### LocalDate
+로컬 날짜 클래스는 날짜 정보만을 저장할 수 있다. LocalDate 객체는 두 가지 정적 메소드로 얻을 수 있는데, now()는 컴퓨터의 현재 날짜 정보를 저장한 LocalDate 객체를 리턴하고 of()는 매개값으로 주어진 날짜 정보를 저장한 LocalDate 객체를 리턴한다. 
+![자세한 내용은 여기서 확인 가능하다](https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html)
+
+<pre>
+<code>
+LocalDate currDate = LocalDate.now();
+LocalDate targetDate = LocalDate.of(int year, int month, int dayOfMonth);
+</code>
+</pre>
+
+### LocalTime
+로컬 시간 클래스는 시간 정보만을 저장할 수 있다. LocalTime 객체도 마찬가지로 두 가지 정적 메소드로 얻을 수 있다. now()는 컴퓨터의 현재 시간 정보를 저장한 LocalTime 객체를 리턴하고 of()는 매개값으로 주어진 시간 정보를 저장한 LocalTime 객체를 리턴한다.
+![자세한 내용은 여기서 확인 가능하다](https://docs.oracle.com/javase/8/docs/api/java/time/LocalTime.html)
+
+<pre>
+<code>
+LocalTime currTime = LocalTime.now();
+LocalTime targetTime = LocalTime.of(int hour, int minute, int second, int nanoOfSecond);
+</code>
+</pre>
+
+### LocalDateTime
+LocalDate와 LocalTime을 결합한 클래스. 날짜와 시간 정보를 모두 저장할 수 있다. 두 가지 정적 메소드로 얻을 수 있다. now()는 컴퓨터의 현재 날짜와 시간 정보를 저장한 LocalDateTime 객체를 리턴하고 of()는 매개값으로 주어진 날짜와 시간 정보를 저장한 LocalDateTime 객체를 리턴한다.
+![자세한 내용은 여기서 확인 가능하다](https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html)
+
+<pre>
+<code>
+LocalDateTime currDateTime = LocalDateTime.now();
+LocalDateTime targetTime = LocalDateTime.of(int year, int month, int dayOfMonth, int hour, int minute, int second, int nanoOfSecond);
+</code>
+</pre>
+
+### ZonedDateTime
+ISO-8601 달력 시스템에서 정의하고 있는 타임전의 날짜와 시간을 저장하는 클래스이다. 저장 형태는 2021-10-04T07:50:24.017+09:00[Asia/Seoul]와 같이 맨 뒤에 타임존에 대한 정보가 추가적으로 붙는다. 존오프셋(ZoneOffset)은 협정세계시(UTC_Universal Time Coordinated)와 차이 나는 시간(시차)을 말한다. now() 정적 메소드에 ZoneId를 매개값으로 주고 얻을 수 있다. ZoneId는 of() 메소드로 얻을 수 있는데, of()의 매개값은 java.util.TimeZone의 getAvailableIDs() 메소드가 리턴하는 유효한 값 중 하나이다.
+![자세한 내용은 여기서 확인 가능하다](https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html)
+
+<pre>
+<code>
+ZonedDateTime utcDateTime = ZonedDateTime.now(ZoneId.of("UTC"));
+ZonedDateTime londonDateTime = ZonedDateTime.now(ZoneId.of("Europe/London"));
+</code>
+</pre>
+
+### Instant
+날짜와 시간의 정보를 얻거나 조작하는데 사용되지 않고 특정 시점의 타임스탬프(Time-Stamp)로 사용된다. 주로 특정한 두 시점 간의 시간적 우선순위를 따질 때 사용한다. java.util.Date와 가장 유사한 클래스이지만, 차이점은 Date는 로컬 컴퓨터의 현재 날짜와 시간 정보를 기준으로 하지만 Instant는 협정세계시(UTC)를 기준으로 한다.
+![자세한 내용은 여기서 확인 가능하다](https://docs.oracle.com/javase/8/docs/api/java/time/Instant.html)
+
+다음은 상기 클래스들을 활용해 날짜와 시간을 출력하는 예제이다.
+<pre>
+<code>
+public class Main {
+    public static void main(String[] args) {
+        // 현재 날짜 
+        LocalDate currDate = LocalDate.now();
+
+        // 특정 날짜 
+        LocalDate targetDate = LocalDate.of(2022, 7, 13);
+
+        // 현재 시간
+        LocalTime currTime = LocalTime.now();
+
+        // 특정 시간
+        LocalTime targetTime = LocalTime.of(6, 30, 0, 0);
+
+        // 날짜와 시간
+        LocalDateTime currDateTime = LocalDateTime.now();
+
+        // 특정 날짜와 시간
+        LocalDateTime targetDateTime = LocalDateTime.of(2022, 7, 13, 6, 30, 0, 0);
+
+        // 협정 세계시와 시간존(TimeZone)
+        ZonedDateTime utcDateTime = ZonedDateTime.now(ZoneId.of("UTC"));
+
+        // 특정 지역 시간존
+        ZonedDateTime seoulDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+    }
+}
+</code>
+</pre>
+
 # 출처
 * [이것이 자바다](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968481475&orderClick=LAG&Kc=)
 * [java.util.Arrays](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Arrays.html)
 * [java.lang.Math](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html)
 * [java.util.Date](https://docs.oracle.com/javase/8/docs/api/java/util/Date.html)
 * [java.util.Calendar](https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html)
+* [java.time](https://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html)
