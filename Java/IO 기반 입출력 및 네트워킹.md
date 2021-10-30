@@ -182,5 +182,337 @@ read(char[] cbuf, int off, int len) 메소드는 입력 스트림으로부터 le
 
 Reader를 더 이상 사용하지 않을 경우 close() 메소드를 호출해서 Reader에서 사용했던 시스템 자원을 풀어준다.
 
+## Writer
+
+[Writer](https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html)는 문자 기반 출력 스트림의 최상위 클래스로 추상 클래스이다. 모든 문자 기반 출력 스트림 클래스는 이 클래스를 상속받아서 만들어진다.
+
+### write(int c)
+
+매개 변수로 주어진 int 값에서 끝에 있는 2바이트(한 개의 문자)만 출력 스트림으로 보낸다. 매개 변수가 int 타입이므로 4바이트 모두를 보내는 것으로 오해할 수 있다.
+
+<pre>
+<code>
+Writer writer = new FileWriter("D:/test.txt");
+char[] data = "그렉".toCharArray();
+for(int i = 0; i < data.length; i++){
+    writer.write(data[i]); // "그", "렉"을 하나씩 출력
+}
+</code>
+</pre>
+
+### write(char[] cbuf)
+
+매개값으로 주어진 char[] 배열의 모든 문자를 출력 스트림으로 보낸다.
+
+<pre>
+<code>
+Writer writer = new FileWriter("D:/test.txt");
+char[] data = "그렉".toCharArray();
+writer.write(data); // "그렉" 모두 출력
+</code>
+</pre>
+
+### write(String str, int off, int len)
+
+c[off]부터 len개의 문자를 출력스트림으로 보낸다.
+
+<pre>
+<code>
+Writer writer = new FileWriter("D:/test.txt");
+char[] data = "일개미".toCharArray();
+writer.write(data, 1, 2); // "개미" 만 출력
+</code>
+</pre>
+
+### write(String str)와 write(String str, int off, int len)메소드
+
+Writer는 문자열을 좀 더 쉽게 보내기 위해 write(String str)와 write(String str, int off, int len) 메소드를 제공한다. write(String str)은 문자열 전체를 출력 스트림으로 보내고, write(String str, int off, int len)은 주어진 문자열 off 순번부터 len개까지의 문자를 보낸다.
+
+문자 출력 스트림은 내부에 작은 버퍼(buffer)가 있어서 데이터가 출력되기 전에 버퍼가 쌓여있다가 순서대로 출력된다. flush() 메소드는 버퍼에 잔류한 데이터를 모두 출력하고 버퍼를 비운다. 프로그램에 더 이상 출력할 문자가 없다면 flush() 메소드를 마지막으로 호출하여 모든 문자가 출력되도록 해야 한다. 마지막으로 Writer를 더 이상 사용하지 않을 경우 close() 메소드로 Writer에서 사용했던 시스템 자원을 풀어준다.
+
+<pre>
+<code>
+Writer writer = new FileWriter("D:/test.txt");
+String data = "피카츄";
+writer.write(data);
+writer.flush();
+writer.close();
+</code>
+</pre>
+
+## 콘솔 입출력
+
+콘솔(Console)은 키보드 입력 내용을 화면에 출력하는 소프트웨어를 말한다. 유닉스나 리눅스는 터미널(terminal), Windows 운영체제는 명령 프롬프트에 해당한다. 
+**자바는 콘솔로부터 데이터를 입력받을 때 System.in을 사용하고, 콘솔에 데이터를 출력할 때 System.out을 사용한다. 에러를 출력할 때에는 System.err을 사용한다.**
+
+### System.in
+
+자바는 프로그램이 콘솔로부터 데이터를 입력받을 수 있도록 [System 클래스](https://docs.oracle.com/javase/7/docs/api/java/lang/System.html)의 in 정적 필드를 제공하고 있다. System.in은 InputStream 타입의 필드이므로 InputStream 변수로 참조가 가능하다.
+
+<pre>
+<code>
+InputStream is = System.in
+</code>
+</pre>
+
+키보드로부터 어떤 키가 입력되었는지 확인하려면 InputStream의 read() 메소드로 한 바이트를 읽으면 된다. 리턴된 int 값에는 십진수 아스키 코드(Ascii Code)가 들어 있다.
+
+<pre>
+<code>
+int asciiCode = is.read();
+</code>
+</pre>
+
+숫자로된 아스키 코드 대신에 키보드에서 입력한 문자를 직접 얻고 싶다면 read() 메소드로 읽은 아스키 코드를 char로 타입 변환하면 된다.
+
+<pre>
+<code>
+char inputChar = (char) is.read();
+</code>
+</pre>
+
+아래 코드는 ATM 기기와 비슷하게 사용자에게 메뉴를 제공하고 어떤 번호를 입력했는지 알아내는 코드이다.
+
+<pre>
+<code>
+import java.io.InputStream;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        System.out.println("== Menu ==");
+        System.out.println("1. 조회");
+        System.out.println("2. 출금");
+        System.out.println("3. 입금");
+        System.out.println("4. 종료");
+        System.out.println("메뉴 선택: ");
+
+        InputStream is = System.in;
+
+        char inputChar = (char) is.read();
+
+        switch(inputChar){
+            case '1':
+                System.out.println("조회");
+                break;
+            case '2':
+                System.out.println("출금");
+                break;
+            case '3':
+                System.out.println("입금");
+                break;
+            case '4':
+                System.out.println("종료");
+                break;
+        }
+    }
+}
+</code>
+</pre>
+
+InputStream의 read() 메소드는 1바이트만 읽기 때문에 1바이트의 아스키 코드로 표현되는 숫자, 영어, 특수문자는 읽을 수 있다. 하지만 한글과 같이 2바이트를 필요로 하는 유니코드는 read() 메소드로 읽을 수 없다. 
+
+한글을 얻으려면 read(byte[] b)나 read(byte[] b, int off, int len) 메소드로 전체 입력된 내용을 바이트 배열로 받고, 이 배열을 이용해서 String 객체를 생성한다. read(byte[] b) 메소드 사용 전 우선 키보드에서 입력한 문자를 저장할 바이트 배열을 만들어야 한다. 배열의 길이는 읽어야 할 바이트 수를 고려해서 적절히 주면 된다. 영어 한 문자는 1바이트, 한글 한 문자는 2바이트를 차지하므로 최대 영문자 15자 또는 한글 7자를 저장하려면 다음과 같이 바이트 배열을 선언하면 된다.
+
+<pre>
+<code>
+byte[] byteData = new byte[15];
+</code>
+</pre>
+
+다음과 같이 생성된 배열을 read(byte[] b) 메소드의 매개값으로 주면 키보드에서 입력한 문자를 저장할 수 있게 된다.
+
+<pre>
+<code>
+byte[] byteData = new byte[15];
+int readByteNo = System.in.read(byteData);
+</code>
+</pre>
+
+프로그램에서 바이트 배열에 저장된 아스키 코드를 사용하려면 문자열로 변환해야 한다. 변환할 문자열은 바이트 배열의 0번 인덱스에서 시작해서 읽은 바이트 수 -2만큼이다. 2를 빼는 이유는 **Enter키에 해당하는 마지막 두 바이트(캐리지 리턴(13) + 라인피드(10))를 제외하기 위해서이다.** 바이트 배열을 문자열로 변환할 때에는 String 클래스의 생성자를 이용한다.
+
+<pre>
+<code>
+String strData = new String(byteData, 0, readByteNo-2);
+</code>
+</pre>
+
+아래 코드는 이름과 전달하고자 하는 메시지를 입력받아 출력하는 코드이다. 
+
+<pre>
+<code>
+import java.io.InputStream;
+
+public class Main {
+    public static void main(String[] args) throws Exception{
+        InputStream is = System.in;
+
+        byte[] datas = new byte[100];
+
+        System.out.print("Name: ");
+        int nameBytes = is.read(datas);
+        String name = new String(datas, 0, nameBytes-2);
+
+        System.out.print("Message: ");
+        int messageBytes = is.read(datas);
+        String message = new String(datas, 0, messageBytes-2);
+
+        System.out.println("Name: " + name);
+        System.out.println("Message: " + message);
+    }
+}
+
+결과)
+Name: Kim
+Message: Hello
+Name: Kim
+Message: Hello
+</code>
+</pre>
+
+### System.out
+
+콘솔로 데이터를 출력하려면 System 클래스의 out 정적 필드를 사용한다. out은 PrintStream 타입의 필드이다. PrintStream은 OutputStream의 하위 클래스이므로 out 필드를 OutputStream 타입으로 변환해서 사용할 수 있다.
+
+<pre>
+<code>
+OutputStream os = System.out;
+</code>
+</pre>
+
+콘솔로 1개의 바이트를 출력하려면 OutputStream의 write(int b) 메소드를 이용한다. 바이트 값은 아스키 코드인데, write() 메소드는 아스키 코드를 문자로 콘솔에 출력한다. 예를 들어 아스키 코드 65번을 write(int b) 메소드로 출력하면 'A'가 출력된다.
+
+<pre>
+<code>
+byte b = 65;
+os.write(b);
+os.flush();
+</code>
+</pre>
+
+write(int b) 메소드는 1바이트만 보낼 수 있기 때문에 2바이트로 표현되는 한글은 출력할 수 없다. 
+한글을 출력하려면 우선 한글을 바이트 배열로 얻은 다음, write(byte[] b, int off, int len) 메소드로 콘솔에 출력하면 된다.
+
+<pre>
+<code>
+String name = "홍길동";
+byte[] nameBytes = name.getBytes();
+os.write(nameBytes);
+os.flush();
+</code>
+</pre>
+
+아래 코드는 write(int b) 메소드로 연속된 숫자, 영어를 출력하고 write(byte[] b)메소드로 한글을 출력하는 코드이다.
+
+<pre>
+<code>
+import java.io.OutputStream;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        OutputStream os = System.out;
+
+        for(byte b=48; b < 58; b++){
+            os.write(b); // 아스키 코드 48~57까지의 문자
+        }
+        os.write(10); // 다음 행으로 넘어가는 라인피드(10) 출력
+
+        for(byte b=97; b < 123; b++){
+            os.write(b); // 아스키 코드 97~122까지의 문자
+        }
+        os.write(10);
+
+        String hanguel = "감사합니다. 사랑합니다.";
+        byte[] hanguelBytes = hanguel.getBytes();
+        os.write(hanguelBytes);
+
+        os.flush();
+
+    }
+}
+
+결과)
+0123456789
+abcdefghijklmnopqrstuvwxyz
+감사합니다. 사랑합니다.
+</code>
+</pre>
+
+### Console 클래스
+
+Console 클래스는 콘솔에서 입력받은 문자열을 쉽게 읽을 수 있도록 한다.
+Console 객체를 얻으려면 System의 정적 메소드인 console()을 다음과 같이 호출하면 된다.
+
+<pre>
+<code>
+Console console = System.console();
+</code>
+</pre>
+
+이클립스에서 실행하면 System.console() 메소드는 null을 리턴한다. 따라서 반드시 명령 프롬프트에서 실행해야 한다.
+
+다음은 콘솔로부터 아이디와 패스워드를 입력받아 출력하는 예시이다.
+
+<pre>
+<code>
+import java.io.Console;
+
+public class Main {
+    public static void main(String[] args) {
+        Console console = System.console();
+
+        System.out.print("ID: ");
+        String id = console.readLine(); // Enter키를 입력하기 전의 모든 문자열을 읽음
+
+        System.out.print("Password: ");
+        char[] charPass = console.readPassword(); // 키보드 입력 문자를 콘솔에 보여주지 않고 문자열을 읽음
+        String strPassword = new String(charPass);
+
+        System.out.println(id);
+        System.out.println(strPassword);
+    }
+}
+</code>
+</pre>
+
+### Scanner 클래스
+
+Console 클래스는 콘솔로부터 문자열을 읽을 수 있지만 기본 타입(정수, 실수) 값을 바로 읽을 수는 없다. 이때 java.util 패키지의 [Scanner 클래스](https://docs.oracle.com/javase/8/docs/api/java/util/Scanner.html)를 이용하면 콘솔로부터 기본 타입의 값을 바로 읽을 수 있다. 
+
+Scanner 객체를 생성하려면 생성자에 System.in 매개값을 주면 된다.
+
+<pre>
+<code>
+Scanner scanner = new Scanner(System.in);
+</code>
+</pre>
+
+Scanner가 콘솔에서만 사용되지 것은 아니다. 생성자 매개값에는 File, InputStream, Path 등과 같이 다양한 입력 소스를 지정할 수도 있다. 
+
+아래 코드는 콘솔로부터 문자열, 정수, 실수를 직접 읽고 다시 콘솔로 출력한다.
+
+<pre>
+<code>
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("문자열 입력: ");
+        String inputString = scanner.nextLine();
+        System.out.println(inputString);
+
+        System.out.print("정수 입력: ");
+        int inputInt = scanner.nextInt();
+        System.out.println(inputInt);
+
+        System.out.print("실수 입력: ");
+        double inputDouble = scanner.nextDouble();
+        System.out.println(inputDouble);
+    }
+}
+</code>
+</pre>
+
 # 출처
 * [이것이 자바다](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968481475&orderClick=LAG&Kc=)
