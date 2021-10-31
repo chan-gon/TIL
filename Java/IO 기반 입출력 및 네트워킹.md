@@ -514,5 +514,291 @@ public class Main {
 </code>
 </pre>
 
+## 파일 입출력
+
+### File 클래스
+
+[FIle 클래스](https://docs.oracle.com/javase/7/docs/api/java/io/File.html)는 IO 패키지에서 제공하며 파일 크게, 파일 속성, 파일 이름 등의 정보를 얻어내는 기능과 파일 생성 및 삭제 기능을 제공하고 있다. 그리고 디렉토리를 생성하고 디렉토리에 존재하는 파일 리스트를 얻어내는 기능도 있다. 하지만 파일의 데이터를 읽고 쓰는 기능은 지원하지 않는다. 파일의 입출력은 스트림을 사용해야 한다.
+
+아래 코드는 'D:/Hello' 디렉토리의 'test.txt' 파일을 File 객체로 생성하는 코드이다.
+
+<pre>
+<code>
+File file = new File("D:\\Hello\\test.txt");
+File file = new File("D:/Hello/test.txt");
+</code>
+</pre>
+
+디렉토리 구분자는 운영체제마다 조금씩 다르다. Windows에서는 /,\ 둘 다 사용 가능하고, 유닉스에서는 /를 사용한다. File.separator 상수를 출력하면 운영체제에서 사용하는 디렉토리 구분자를 확인할 수 있다. 만약 \를 디렉토리 구분자로 사용한다면 이스케이프 문자(\\)로 기술해야 한다.
+
+생성자 매개값으로 주어진 경로가 유효하지 않더라도 컴파일 에러나 예외가 발생하지 않는다. 따라서 File 객체를 생성했다고 해서 파일이나 디렉토리가 생성되는 것은 아니다. File 객체를 통해 해당 경로에 실제로 파일이나 디렉퇴가 있는지 확인하려면 exists() 메소드를 호출해서 true, false 여부를 확인한다.
+
+<pre>
+<code>
+boolean isExist = file.exists();
+</code>
+</pre>
+
+아래 코드는 'D:/Hello' 디렉토리에 'test1.txt','test2.txt','test3.txt' 파일을 생성하고 Hello 디렉토리에 있는 파일 목록을 출력한다.
+
+<pre>
+<code>
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        File dir = new File("D:/Hello/Dir");
+        File file1 = new File("D:/Hello/test1.txt");
+        File file2 = new File("D:/Hello/test2.txt");
+        File file3 = new File("D:/Hello/test3.txt");
+
+        if(dir.exists() == false) { dir.mkdirs(); }
+        if(file1.exists() == false) { file1.createNewFile(); }
+        if(file2.exists() == false) { file2.createNewFile(); }
+        if(file3.exists() == false) { file3.createNewFile(); }
+
+        File hello = new File("D:/Hello");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd a HH:mm");
+        File[] contents = hello.listFiles();
+
+        System.out.println("날짜 / 시간 / 형태 / 크기 / 이름");
+        System.out.println("--------------------------------");
+        for(File file : contents){
+            System.out.println(sdf.format(new Date(file.lastModified())));
+            if(file.isDirectory()){
+                System.out.println("\t<DIR>\t\t\t" + file.getName());
+            }else{
+                System.out.println("\t\t\t" + file.length() + "\t" + file.getName());
+            }
+            System.out.println();
+        }
+    }
+}
+
+결과)
+날짜 / 시간 / 형태 / 크기 / 이름
+--------------------------------
+2021-10-31 오후 13:30
+2021-10-31 오후 13:30
+                        0       test1.txt
+
+2021-10-31 오후 13:30
+                        0       test2.txt
+
+2021-10-31 오후 13:30
+                        0       test3.txt
+</code>
+</pre>
+
+### FileInputStream
+
+[FileInputStream 클래스](https://docs.oracle.com/javase/7/docs/api/java/io/FileInputStream.html)는 파일로부터 바이트 단위로 읽어들일 때 사용하는 바이트 기반 입력 스트림이다. 바이트 단위로 읽기 때문에 그림, 오디오, 비디오, 텍스트 파일 등 모든 종류의 파일을 읽을 수 있다. 
+
+FileInputStream은 두 가지 생성 방법이 있다.
+
+<pre>
+<code>
+// 1
+FileInputStream fis = new FileInputStream("D:/Hello/image.gif");
+
+// 2
+File file = new File("D:/Hello/image.gif");
+FileInputStream fis = new FileInputStream(file);
+</code>
+</pre>
+
+FileInputStream은 InputStream의 하위 클래스이기 때문에 사용 방법이 InputStream과 동일하다. 한 바이트 읽으려면 read(), 읽은 바이트를 바이트 배열에 저장하려면 read(byte[] b) 또는 read(byte[] b, int off, int len), 파일 내용을 모두 읽은 후 close()로 파일을 닫는다.
+
+아래 코드는 소스 파일을 읽고 콘솔에서 보여준다.
+
+<pre>
+<code>
+import java.io.FileInputStream;
+
+public class Main {
+    public static void main(String[] args) {
+        try{
+            FileInputStream fis = new FileInputStream("D:/Hello/test1.txt");
+            int data;
+            while( (data = fis.read()) != -1 ){
+                System.out.write(data);
+            }
+            fis.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+}
+</code>
+</pre>
+
+### FileOutputStream
+
+[FileOutputStream 클래스](https://docs.oracle.com/javase/7/docs/api/java/io/FileOutputStream.html)은 바이트 단위로 데이터를 파일에 저장할 때 사용하는 바이트 기반 출력 스트림이다. 
+
+FileOutputStream 두 가지 생성 방법이 있다.
+
+<pre>
+<code>
+// 1
+FileOutputStream fos = new FileOutputStream("D:/Hello/image.gif");
+
+// 2
+File file = new File("D:/Hello/image.gif");
+FileOutputStream fos = new FileOutputStream(file);
+</code>
+</pre>
+
+첫 번째 방법은 파일의 경로를 가지고 FileOutputStream을 생성한다. 만약 저장할 파일이 File 객체로 이미 생성되어 있다면 두 번째 방법으로 좀 더 쉽게 FileOutputStream을 생성할 수 있다.
+
+파일이 이미 존재할 경우 데이터를 출력하면 파일을 덮어쓰게 된다. 따라서 기존 파일 내용은 사라지게 되므로 주의해야 한다. 기존의 파일 내용 끝에 데이터를 추가할 경우에는 FileOutputStream 생성자의 두 번째 매개값을 true로 주면 된다.
+
+<pre>
+<code>
+FileOutputStream fos = new FileOutputStream("D:/Hello/test1.txt", true);
+FileOutputStream fos = new FileOutputStream(file, true);
+</code>
+</pre>
+
+아래 코드는 원본 파일을 타겟 파일로 복사한다. 복사 프로그램의 원리는 원본 파일에서 읽은 바이트를 바로 타겟 파일로 저장하는 것이다. FileInputStream에서 읽은 바이트를 바로 FileOutputStream으로 저장한다.
+
+<pre>
+<code>
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        String originalFileName = "D:/Rocky.jpg";
+
+        String targetFileName = "‪D:/Temp/temp.png";
+
+        FileInputStream fis = new FileInputStream(originalFileName);
+        FileOutputStream fos = new FileOutputStream(targetFileName);
+
+        int readByteNo;
+        byte[] readBytes = new byte[100];
+        while( (readByteNo = fis.read(readBytes)) != -1 ){
+            fos.write(readBytes, 0, readByteNo);
+        }
+
+        fos.flush();
+        fos.close();
+        fis.close();
+    }
+}
+</code>
+</pre>
+
+### FileReader
+
+[FileReader 클래스](https://docs.oracle.com/javase/7/docs/api/java/io/FileReader.html)는 텍스트 파일을 프로그램으로 읽어들일 때 사용하는 문자 기반 스트림이다. 
+
+FileReader 두 가지 생성 방법이 있다.
+
+<pre>
+<code>
+// 1
+FileReader fr = new FileReader("D:/Hello/image.gif");
+
+// 2
+File file = new File("D:/Hello/image.gif");
+FileReader fr = new FileReader(file);
+</code>
+</pre>
+
+첫 번째 방법은 파일의 경로를 가지고 FileReader을 생성한다. 읽어야 할 파일이 File 객체로 이미 생성되어 있다면 두 번째 방법으로 좀 더 쉽게 FileReader를 생성할 수 있다.
+
+FileReader 객체가 생성될 때 파일과 직접 연결이 되는데, 만약 파일이 존재하지 않으면 FileNotFoundException을 발생시키므로 try-catch문으로 예외 처리를 해야 한다. 
+
+아래 코드는 소스 파일을 읽고 콘솔에 출력한다.
+
+<pre>
+<code>
+import java.io.FileReader;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        FileReader fr = new FileReader("D:/Hello/test1.txt");
+
+        int readCharNo;
+        char[] cbuf = new char[100];
+        while( (readCharNo=fr.read(cbuf)) != -1 ) {
+            String data = new String(cbuf, 0, readCharNo);
+            System.out.println(data);
+        }
+        fr.close();
+    }
+}
+
+결과)
+This file is test1.txt. // test1.txt 파일 내용이 출력됨
+</code>
+</pre>
+
+### FileWriter
+
+[FileWriter 클래스](https://docs.oracle.com/javase/7/docs/api/java/io/FileWriter.html)는 텍스트 데이터를 파일에 저장할 때 사용하는 문자 기반 스트림이다. 문자 단위로 저장하기 때문에 텍스트가 아닌 그림, 오디오, 비디오 등의 데이터를 파일로 저장할 수 없다. 
+
+FileWriter는 두 가지 생성 방법이 있다.
+
+<pre>
+<code>
+// 1
+FileWriter fw = new FileWriter("D:/Hello/test1.txt");
+
+// 2
+File file = new File("D:/Hello/test1.txt");
+FileWriter fw = new FileWriter(file);
+</code>
+</pre>
+
+첫 번째 방법은 전체 파일의 경로를 가지고 FileWriter를 생성한다. 
+저장할 파일이 File 객체로 이미 생성되어 있다면 두 번째 방법으로 좀 더 쉽게 FileWriter를 생성할 수 있다.
+
+기존 저장 파일 내용을 유지하고 싶다면 기존의 파일 내용 끝에 데이터를 추가할 경우 FileWriter 생성자에 두 번째 매개값으로 true를 준다.
+
+<pre>
+<code>
+// 1
+FileWriter fw = new FileWriter("D:/Hello/test1.txt", true);
+
+// 2
+File file = new File("D:/Hello/test1.txt");
+FileWriter fw = new FileWriter(file, true);
+</code>
+</pre>
+
+아래 코드는 문자열 데이터를 'D:/Hello/test1.txt'에 저장한다.
+
+<pre>
+<code>
+import java.io.File;
+import java.io.FileWriter;
+
+public class Main {
+    public static void main(String[] args) throws Exception{
+        File file = new File("D:/Hello/test1.txt");
+        FileWriter fw = new FileWriter(file, true);
+        fw.write("안녕하세요." + "\r\n");
+        fw.write("FileWriter 클래스 사용했습니다.");
+        fw.flush();
+        fw.close();
+        System.out.println("저장 완료");
+
+    }
+}
+
+결과)
+저장 완료
+</code>
+</pre>
+
+FileWriter 클래스 메소드를 사용해 내용을 변경한 test1.txt 파일 내부는 다음과 같다.
+
+![test1.txt](./image/java_chapter18_1.png)
+
 # 출처
 * [이것이 자바다](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968481475&orderClick=LAG&Kc=)
