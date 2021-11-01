@@ -1,4 +1,4 @@
-# IO 기반 입출력 및 네트워킹
+# IO 기반 입출력 및 네트워킹_1
 
 자바에서 데이터는 스트림(Stream)을 통해 입출력된다. 스트림은 단일 방향으로 연속적으로 흘러가는 것을 말하는데, 물이 높은 곳에서 낮은 곳으로 흐르듯이 데이터는 출발지에서 나와 도착지로 들어간다는 개념이다.
 
@@ -799,6 +799,652 @@ public class Main {
 FileWriter 클래스 메소드를 사용해 내용을 변경한 test1.txt 파일 내부는 다음과 같다.
 
 ![test1.txt](./image/java_chapter18_1.png)
+
+## 보조 스트림
+
+보조 스트림은 다른 스트림과 연결되어 여러 편리한 기능을 제공하는 스트림을 말한다. 보조 스트림은 자체적으로 입출력을 수행할 수 없기 때문에 입력 소스, 출력 소스와 바로 연결되는 클래스들에 연결해서 입출력을 수행한다. 
+
+보조 스트림 생성 시 자신이 연결될 스트림을 생성자의 매개값으로 받는다.
+
+<pre>
+<code>
+보조스트림 변수 = new 보조스트림(연결 스트림)
+</code>
+</pre>
+
+예를 들어 콘솔 입력 스트림을 문자 변환 보조 스트림인 InputStreamReader에 연결하는 코드는 아래와 같다.
+
+<pre>
+<code>
+InputStream is = System.in;
+InputStreamReader reader = new InputStreamReader(is);
+</code>
+</pre>
+
+보조 스트림은 또 다른 보조 스트림에도 연결되어 스트림 체인을 구성할 수 있다.
+아래 코드는 보조 스트림 InputReaderStream에 성능 향상 보조 스트림을 BufferedReader에 연결한 것이다.
+
+<pre>
+<code>
+InputStream is = System.in;
+InputStreamReader reader = new InputStreamReader(is);
+BufferedReader br = new BufferedReader(reader);
+</code>
+</pre>
+
+### 문자 변환 보조 스트림
+
+소스 스트림이 바이트 기반 스트림(InputStream, OutputStream, FileInputStream, FileOutputStream)이면서 입출력 데이터가 문자라면 Reader와 Writer로 변환해서 사용하는 것을 고려해야 한다. Reader, Writer는 문자 단위로 입출력하기 때문에 바이트 기반 스트림보다는 편하고, 문자셋의 종류를 지정할 수 있기 때문에 다양한 문자를 입출력할 수 있다.
+
+### InputStreamReader
+
+바이트 입력 스트림에 연결되어 문자 입력 스트림인 Reader로 변환시키는 보조 스트림이다.
+
+<pre>
+<code>
+Reader reader = new InputStreamReader(바이트입력스트림);
+</code>
+</pre>
+
+콘솔 입력을 위한 InputStream을 다음과 같이 Reader 타입으로 변환할 수 있다.
+
+<pre>
+<code>
+InputStream is = System.in;
+Reader reader = new InputStreamReader(is);
+</code>
+</pre>
+
+파일 입력을 위한 FileInputStream은 다음과 같이 Reader 타입으로 변환할 수 있다.
+
+<pre>
+<code>
+FileInputStream fis = new FileInputStream("D:/test.txt");
+Reader reader = new InputStreamReader(fis);
+</code>
+</pre>
+
+아래 코드는 콘솔에서 입력한 한글을 Reader를 이용해서 읽은 후 다시 콘솔로 출력한다.
+
+<pre>
+<code>
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        InputStream is = System.in;
+        Reader reader = new InputStreamReader(is);
+
+        int readCharNo;
+        char[] cbuf = new char[100];
+        while( (readCharNo=reader.read(cbuf)) != -1 ){
+            String data = new String(cbuf, 0, readCharNo);
+            System.out.println(data);
+        }
+
+        reader.close();
+    }
+}
+</code>
+</pre>
+
+### OutputStreamWriter
+
+바이트 출력 스트림에 연결되어 문자 출력 스트림인 Writer로 변환시키는 보조 스트림이다.
+
+<pre>
+<code>
+Writer writer = new OutputStreamWriter(바이트출력스트림);
+</code>
+</pre>
+
+파일 출력을 위한 FileOutputStream을 다음과 같이 Writer 타입으로 변환할 수 있다.
+
+<pre>
+<code>
+FileOutputStream fos = new FileOutputStream("D:/test.txt");
+Writer writer = new OutputStreamWriter(fos);
+</code>
+</pre>
+
+아래 코드는 FileOutputStream을 Writer로 변환해서 문자열을 파일에 저장한다.
+
+<pre>
+<code>
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+
+public class Main {
+    public static void main(String[] args) throws Exception{
+        FileOutputStream fos = new FileOutputStream("D:/Hello/test1.txt");
+        Writer writer = new OutputStreamWriter(fos);
+
+        String data = "바이트 출력 스트림을 문자 출력 스트림으로 변환!";
+        writer.write(data);
+
+        writer.flush();
+        writer.close();
+        System.out.println("종료");
+    }
+}
+</code>
+</pre>
+
+위 코드 수행 결과는 아래와 같다.
+
+![OutputStreamWriter](./image/java_chapter18_2.png)
+
+### 성능 향상 보조 스트림
+
+프로그램의 실행 성능은 입출력이 가장 늦은 장치를 따라간다. CPU가 성능이 좋아도 하드 디스크의 입출력이 느리면 프로그램의 실행 성능은 하드 디스크의 성능을 따라간다. 
+
+프로그램이 입출력 소스와 직접 작업하지 않고 중간에 메모리 버퍼(buffer)와 작업하면 실행 성능을 향상시킬 수 있다. 하드 디스크에 데이터를 보내지 않고 메모리 버퍼에 데이터를 보내면 쓰기 속도가 향상된다. 버퍼는 데이터를 쌓아 두었다가 꽉 차면 데이터를 한꺼번에 하드 디스크로 보내기 때문에 출력 횟수를 줄여준다.
+
+보조 스트림 중 메모리 버퍼를 제공하여 프로그램 성능을 향상시키는 것들이 있다.
+바이트 기반 스트림에는 BufferedInputStream, BufferedOutputStream
+문자 기반 스트림에는 BufferedReader, BufferedWriter가 있다.
+
+### BufferedInputStream / BufferedReader
+
+BufferedInputStream은 바이트 입력 스트림에 연결되어 버퍼를 제공해주는 보조 스트림이다.
+BufferedReader는 문자 입력 스트림에 연결되어 버퍼를 제공해주는 보조 스트림이다.
+
+둘 다 입력 소스로부터 자신의 내부 버퍼 크기만큼 데이터를 미리 읽고 버퍼에 저장해 둔다. 프로그램은 외부의 입력 소스로부터 직접 읽는 대신 버퍼로부터 읽기 때문에 읽기 성능이 향상된다.
+
+BufferedInputStream / BufferedReader 보조 스트림은 생성자의 매개값으로 준 입력 스트림과 연결되어 8192 내부 버퍼 사이즈를 가지게 된다. BufferedInputStream은 최대 8192 바이트, BufferedReader는 최대 8192 문자가 저장될 수 있다.
+
+<pre>
+<code>
+BufferedInputStream bis = new BufferedInputStream(바이트입력스트림);
+BufferedReader br = new BufferedReader(문자입력스트림);
+</code>
+</pre>
+
+아래 코드는 BufferedInputStream 사용 유무에 따른 성능 차이를 보여준다.
+
+<pre>
+<code>
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        long start = 0;
+        long end = 0;
+
+        FileInputStream fis1 = new FileInputStream("C:/Users/gon/TIL/Java/image/java_chapter2_1.png");
+        start = System.currentTimeMillis();
+        while(fis1.read() != -1){}
+        end = System.currentTimeMillis();
+        System.out.println("Without BufferedInputStream = " + (end-start) + "ms");
+        fis1.close();
+
+        FileInputStream fis2 = new FileInputStream("C:/Users/gon/TIL/Java/image/java_chapter2_1.png");
+        BufferedInputStream bis = new BufferedInputStream(fis2);
+        start = System.currentTimeMillis();
+        while(bis.read() != -1){}
+        end = System.currentTimeMillis();
+        System.out.println("With BufferedInputStream = " + (end-start) + "ms");
+        bis.close();
+        fis2.close();
+    }
+}
+
+결과)
+Without BufferedInputStream = 125ms
+With BufferedInputStream = 10ms
+</code>
+</pre>
+
+아래 코드는 Enter키를 입력하기 전까지 콘솔에서 입력한 모든 문자열을 한꺼번에 얻는다.
+
+<pre>
+<code>
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+
+public class Main {
+    public static void main(String[] args) throws Exception{
+        InputStream is = System.in;
+        Reader reader = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(reader);
+
+        System.out.print("Input: ");
+        String lineStr = br.readLine();
+
+        System.out.println(lineStr);
+    }
+}
+
+결과)
+Input: Hello
+Hello
+</code>
+</pre>
+
+### BufferedOutputStream / BufferedWriter
+
+BufferedOutputStream은 바이트 출력 스트림에 연결되어 버퍼를 제공해주는 보조 스트림이다.
+BufferedWriter는 문자 출력 스트림에 연결되어 버퍼를 제공해주는 보조 스트림이다.
+
+둘 다 프로그램에서 전송한 데이터를 내부 버퍼에 쌓아 두었다가 버퍼가 꽉 차면 버퍼의 모든 데이터를 한꺼번에 보낸다. 프로그램 입장에서는 직접 데이터를 보내지 않고 메모리 버퍼로 데이터를 고속 전송하기 때문에 실행 성능이 향상되는 효과를 얻는다.
+
+BufferedOutputStream / BufferedWriter 보조 스트림은 생성자의 매개값으로 준 출력 스트림과 연결되어 8192 내부 버퍼 사이즈를 가지게 된다. BufferedOutputStream은 최대 8192 바이트, BufferedWriter는 최대 8192 문자가 저장될 수 있다.
+
+<pre>
+<code>
+BufferedOutputStream bos = new BufferedOutputStream(바이트입력스트림);
+BufferedWriter bw = new BufferedWriter(문자입력스트림);
+</code>
+</pre>
+
+BufferedOutputStream / BufferedWriter는 버퍼가 가득 찼을 때만 출력을 하기 때문에 마지막 자투리 데이터 부분이 목적지로 가지 못하고 버퍼에 남을 수 있다. 그래서 마지막 작업 후 flush() 메소드로 버퍼에 잔류한 데이터를 모두 내보내야 한다. 
+
+아래 코드는 파일 복사를 수행한다. BufferedOutputStream 사용 유무에 따른 차이점을 보여준다.
+
+<pre>
+<code>
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+public class Main {
+    public static void main(String[] args) throws Exception{
+        FileInputStream fis = null;
+        FileOutputStream fos = null;
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
+
+        int data = -1;
+        long start, end = 0;
+
+        fis = new FileInputStream("C:/Users/gon/TIL/Java/image/java_chapter2_1.png");
+        bis = new BufferedInputStream(fis);
+        fos = new FileOutputStream("D:/Hello/java_chapter2_1.png");
+        start = System.currentTimeMillis();
+        while((data = bis.read()) != -1){
+            fos.write(data);
+        }
+        fos.flush();
+        end = System.currentTimeMillis();
+        fos.close(); 
+        bis.close();
+        fis.close();
+        System.out.println("Without BufferedOutputStream = " + (end-start) + "ms");
+
+        fis = new FileInputStream("C:/Users/gon/TIL/Java/image/java_chapter2_1.png");
+        bis = new BufferedInputStream(fis);
+        fos = new FileOutputStream("D:/Hello/java_chapter2_1.png");
+        bos = new BufferedOutputStream(fos);
+        start = System.currentTimeMillis();
+        while((data = bis.read()) != -1){
+            bos.write(data);
+        }
+        bos.flush();
+        end = System.currentTimeMillis();
+        bos.close(); 
+        fos.close();
+        bis.close();
+        fis.close();
+        System.out.println("With BufferedOutputStream = " + (end-start) + "ms");
+    }
+}
+
+결과)
+Without BufferedOutputStream = 150ms
+With BufferedOutputStream = 4ms
+</code>
+</pre>
+
+바이트 스트림은 바이트 단위로 입출력하기 때문에 자바의 기본 데이터 타입인 boolean, char, short, int, long, float, double 단위로 입출력할 수 없다. 하지만 DataInputStream, DataOutputStream 보조 스트림을 연결하면 기본 데이터 타입으로 입출력이 가능하다.
+
+아래 코드는 이름, 성적, 순위 순으로 파일에 출력하고 다시 이름, 성적, 순위 순으로 파일로부터 입력받는다.
+
+<pre>
+<code>
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+         FileOutputStream fos = new FileOutputStream("D:/Hello/test1.txt");
+         DataOutputStream dos = new DataOutputStream(fos);
+
+         dos.writeUTF("Park");
+         dos.writeDouble(89.7);
+         dos.writeInt(2);
+
+         dos.writeUTF("Kim");
+         dos.writeDouble(77.7);
+         dos.writeInt(5);
+
+         dos.flush();
+         dos.close();
+         fos.close();
+
+         FileInputStream fis = new FileInputStream("D:/Hello/test1.txt");
+         DataInputStream dis = new DataInputStream(fis);
+
+         for(int i = 0; i < 2; i++){
+             String name = dis.readUTF();
+             double score = dis.readDouble();
+             int order = dis.readInt();
+             System.out.println(name + " / " + score + " / " + order);
+         }
+         dis.close();
+         fis.close();
+    }
+}
+
+결과)
+Park / 89.7 / 2
+Kim / 77.7 / 5
+</code>
+</pre>
+
+### 프린터 보조 스트림
+
+PrintStream, PrintWriter는 프린터와 유사하게 출력하는 print(), println() 메소드를 가지고 있는 보조 스트림이다. 
+콘솔 출력 스트림인 System.out이 PrintStream 타입이기 때문에 print(), println() 메소드를 사용할 수 있다. 
+
+println() 메소드는 출력 시 데이터 끝에 개행 문자일 '\n'를 추가하기 때문에 콘솔이나 파일에서 줄 바꿈이 일어난다. 
+print() 메소드는 개행 없이 문자를 출력한다.
+
+아래 코드는 FileOutputStream에 보조 스트림으로 printStream을 연결한다.
+
+<pre>
+<code>
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        FileOutputStream fos = new FileOutputStream("D:/Hello/test1.txt");
+        PrintStream ps = new PrintStream(fos);
+
+        ps.println("A PrintStream");
+        ps.print("adds functionality to another output stream");
+        ps.println("namely the ability to print representatiosns of various data values conveniently");
+
+        ps.flush();
+        ps.close();
+        fos.close();
+    }
+}
+</code>
+</pre>
+
+위 코드의 실행 결과는 아래와 같다.
+
+![PrintStream](./image/java_chapter18_3.png);
+
+PrintStream, PrintWriter는 printf() 메소드도 제공한다. 이 메소드는 형식화된 문자열(format string)을 출력할 수 있도록 하기 위해 자바5부터 추가된 메소드이다. 
+첫 번째 매개값으로 형식화된 문자열 지정, 두 번째 매개값부터 형식화된 문자열에 들어갈 값을 나열한다.
+
+<pre>
+<code>
+printf(형식화된 문자열 지정, 형식화된 문자열에 들어갈 값);
+</code>
+</pre>
+
+아래 코드는 printf() 메소드를 사용해서 다양한 형식으로 출력한다.
+
+<pre>
+<code>
+import java.sql.Date;
+import java.time.LocalDateTime;
+
+import javax.xml.crypto.Data;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.printf("Price = %d원\n", 123);
+        System.out.printf("Price = %6d원\n", 123);
+        System.out.printf("Price = %-6d원\n", 123);
+        System.out.printf("Price = %06d원\n", 123);
+
+        System.out.printf("%6d | %-10s | %10s\n", 7, "Park", "Hello");
+
+        System.out.printf("오늘은 %tY년 %tm월 %td일 입니다.", LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now());    
+    }
+}
+
+결과)
+Price = 123원
+Price =    123원
+Price = 123   원
+Price = 000123원
+     7 | Park       |      Hello
+오늘은 2021년 11월 01일 입니다.
+</code>
+</pre>
+
+### 객체 입출력 보조 스트림
+
+자바는 메모리에 생성된 객체를 파일 또는 네트워크로 출력할 수가 있다. 객체는 문자가 아니기 때문에 바이트 기반 스트림으로 출력해야 한다. 
+객체 출력은 직렬화 기법을 사용한다.
+- 직렬화(serialization): 객체의 데이터(필드값)를 일렬로 늘어선 연속적인 바이트로 변경하는 것.
+
+반대로 파일에 저장되어 있거나 네트워크에서 전송된 객체를 읽을때는 역직렬화를 한다.
+- 역직렬화(deserialization): 입력 스트림으로부터 읽어들인 연속적인 바이트를 객체로 복원하는 것.
+
+### ObjectInputStream, ObjectOutputStream
+
+- ObjectInputStream : 바이트 출력 스트림과 연결되어 객체를 직렬화
+- ObjectOutputStream : 바이트 입력 스트림과 연결되어 객체로 역직렬화
+
+아래 코드는 객체를 파일에 저장하고 다시 파일로부터 읽어 객체로 복원한다. 복수의 객체를 저장할 경우 출력된 객체 순서와 동일한 순서로 객체를 읽는다.
+
+<pre>
+<code>
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        FileOutputStream fos = new FileOutputStream("D:/Hello/test1.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(Integer.valueOf(10));
+        oos.writeObject(Double.valueOf(3.14));
+        oos.writeObject(new int[]{3,2,1});
+        oos.writeObject(new String("Park"));
+        
+        oos.flush();
+        oos.close();
+        fos.close();
+
+        FileInputStream fis = new FileInputStream("D:/Hello/test1.txt");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+
+        Integer obj1 = (Integer)ois.readObject();
+        Double obj2 = (Double)ois.readObject();
+        int[] obj3 = (int[])ois.readObject();
+        String obj4 = (String)ois.readObject();
+        ois.close();
+        fis.close();
+
+        System.out.println(obj1);
+        System.out.println(obj2);
+        System.out.println(obj3[0]);
+        System.out.println(obj4);
+    }
+}
+
+결과)
+10
+3.14
+3
+Park
+</code>
+</pre>
+
+### 직렬화가 가능한 클래스(Serializable)
+
+자바는 Serializable 인터페이스를 구현한 클래스만 직렬화할 수 있도록 제한한다.
+Serializable 인터페이스는 필드가 메소드가 없는 빈 인터페이스이다. 객체를 직렬화할 때 private 필드를 포함한 모든 필드를 바이트로 변환해도 좋다는 표시 역할을 한다.
+
+<pre>
+<code>
+public class XXX implements Serializable { ... }
+</code>
+</pre>
+
+객체를 직렬화하면서 바이트로 변환되는 것은 필드들이고, 생성자 및 메소드는 직렬화에 포함되지 않는다. 역직렬화할 때에는 필드의 값만 복원된다. 하지만 모든 필드가 직렬화 대상이 되는 것은 아니다. 필드 선언에 static 또는 transient가 붙어 있을 경우에는 직렬화가 되지 않는다.
+
+아래 코드는 직렬화되는 핃드와 그렇지 못한 필드를 구분한다.
+
+<pre>
+<code>
+import java.io.Serializable;
+
+public class ClassA implements Serializable{
+    int field1;
+    ClassB field2 = new ClassB();
+    static int field3;
+    transient int field4;
+}
+
+import java.io.Serializable;
+
+public class ClassB implements Serializable {
+    int field1;
+}
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
+public class SerializableWriter {
+    public static void main(String[] args) throws Exception{
+        FileOutputStream fos = new FileOutputStream("D:/Hello/test1.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        ClassA classA = new ClassA();
+        classA.field1 = 1;
+        classA.field2.field1 = 2;
+        classA.field3 = 3;
+        classA.field4 = 4;
+        oos.writeObject(classA);
+        oos.flush();
+        oos.close();
+        fos.close();
+    }
+}
+
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+
+public class SerializableReader {
+    public static void main(String[] args) throws Exception{
+        FileInputStream fis = new FileInputStream("D:/Hello/test1.txt");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+
+        ClassA v = (ClassA)ois.readObject();
+        System.out.println(v.field1);
+        System.out.println(v.field2.field1);
+        System.out.println(v.field3);
+        System.out.println(v.field4);
+    }
+}
+
+결과)
+1
+2
+0
+0
+</code>
+</pre>
+
+SerializableWriter 클래스를 실행하면 ClassA 객체를 직렬화해서 test1.txt 파일에 저장한다.
+그리고 SerializableReader 클래스를 실행하면 test1.txt 파일에 저장된 데이터를 읽고 ClassA 객체로 역직렬화한다. 
+실행 결과는 field1, field2는 값이 복원되지만, static 필드인 field3, transient 필드인 field4는 값이 복원되지 않는다. test1.txt 파일에는 field1, field2의 데이터만 저장되어 있기 때문이다.
+
+### writeObject(), readObject() 메소드
+
+두 클래스가 상속 관계에 있을 때, 부모 클래스가 Serializable 인터페이스를 구현하고 있으면 자식 클래스는 Serializable 인터페이스를 구현하지 않아도 자식 객체를 직렬화하면 부모 필드 및 자식 필드가 모두 직렬화된다. 
+
+반대로 부모 클래스가 Serializable 인터페이스를 구현하지 않고 자식 클래스만 Serializable 인터페이스를 구현하고 있다면 자식 객체를 직렬화할 때 부모의 필드는 직렬화에서 제외된다. 이 경우 부모 클래스의 필드를 직렬화하고 싶다면 두 가지 방법이 있다.
+
+- 부모 클래스가 Serializable 인터페이스를 구현하도록 수정
+- 자식 클래스에서 writeObject(), readObject() 메소드를 선언해서 부모 객체의 필드를 직접 출력
+
+부모 클래스 소스 수정이 불가능하다면 두 번째 방법을 사용해야 한다. 
+writeObject() 메소드는 직렬화될 때 자동으로 호출되고, readObject() 메소드는 역직렬화될 때 자동적으로 호출된다. 
+
+두 메소드 사용 시 접근 제한자가 private이 아니면 자동 호출되지 않기 때문에 반드시 private를 붙여야 한다. 
+
+아래 코드는 Serializable을 구현하지 않은 부모 클래스의 필드를 writeObject(), readObject() 메소드로 직렬화한다.
+
+<pre>
+<code>
+// Serializable을 구현하지 않은 부모 클래스
+public class Parent {
+    public String field1;
+}
+
+// 직렬화되지 않은 부모 클래스의 필드 처리
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Child extends Parent implements Serializable{
+    public String field2;
+
+    private void writeObject(ObjectOutputStream out) throws IOException{
+        out.writeUTF(field1);
+        out.defaultWriteObject();
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
+        field1 = in.readUTF();
+        in.defaultReadObject();
+    }
+}
+
+// 직렬화 및 역직렬화
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class NonSerializableParentExample {
+    public static void main(String[] args) throws Exception{
+        FileOutputStream fos = new FileOutputStream("D:/Hello/test1.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        Child child = new Child();
+        child.field1 = "Park";
+        child.field2 = "Kim";
+        oos.writeObject(child);
+        oos.flush();
+        oos.close();
+        fos.close();
+
+        FileInputStream fis = new FileInputStream("D:/Hello/test1.txt");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        Child v = (Child) ois.readObject();
+        System.out.println(v.field1);
+        System.out.println(v.field2);
+        ois.close();
+        fis.close();
+    }
+}
+
+결과)
+Park
+Kim
+</code>
+</pre>
 
 # 출처
 * [이것이 자바다](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968481475&orderClick=LAG&Kc=)
