@@ -458,5 +458,188 @@ Waiting to connect
 </code>
 </pre>
 
+### 스레드 병렬 처리
+
+ServerSocket과 Socket은 동기(블로킹) 방식으로 구동된다. 서버 연결을 요청하거나 수락할 때는 해당 작업이 완료될 때까지 블로킹된다. 데이터를 보내거나 받을 때도 해당 작업이 완료될 때까지 블로킹된다. 
+
+만약 서버를 실행시키는 main 스레드가 직접 입출력 작업을 담당하면 입출력이 완료될 때까지 다른 작업을 할 수 없는 상태가 된다. 서버 애플리케이션은 지속적으로 클라이언트의 연결 수락 기능을 수행해야 하는데, 입출력에서 블로킹되면 이 작업을 할 수 없게 된다. 따라서 accept(), connect(), read(), write()는 별도의 작업 스레드를 생성해서 병렬적으로 처리하는 것이 좋다.
+
+수천 개의 클라이언트가 동시에 연결되면 서버 과부하로 성능이 저하될 수 있기 때문에 스레드풀(Executor Service)을 사용하는 것이 좋다.
+스페드풀은 스레드 수를 제한해서 사용하기 때문에 갑작스러운 클라이언트의 폭증은 작업 큐의 작업량만 증가시킬 뿐 스레드 수는 변함이 없기 때문에 서버 성능은 완만히 저하된다.
+
+## UDP 네트워킹
+
+UDP(User Datagram Protocol)는 비연결 지향적 프로토콜이다. 비연결 지향적이란 데이터를 주고받을 때 연결 절차를 거치지 않고 발신자가 일방적으로 데이터를 발신하는 방식이다. 연결 과정이 없기 때문에 TCP 보다는 빠른 전송이 가능하지만 데이터 전달의 신뢰성은 떨어진다. 
+
+UDP는 발신자가 데이터 패킷을 순차적으로 보내더라도 이 패킷들은 서로 다른 통신 선로를 통해 전달될 수 있따. 먼저 보낸 패킷이 느린 선로를 통해 전송될 경우 나중에 보낸 패킷보다 늦게 도착할 수 있다. 또한 일부 패킷은 잘못된 선로로 전송되어 잃어버릴 수도 있다.
+
+일반적으로 데이터 전달의 신뢰성보다 속도가 중요한 프로그램에서 UDP를 사용하고, 데이터 전달의 신뢰성이 중요한 경우 TCP를 사용한다.
+자바는 UDP 프로그래밍을 위해 [DatagramSocket 클래스](https://docs.oracle.com/javase/7/docs/api/java/net/DatagramSocket.html)와 [DatagramPacket 클래스](https://docs.oracle.com/javase/7/docs/api/java/net/DatagramPacket.html)를 제공한다. 
+
+- DatagramSocket : 발신점과 수신점에 해당하는 클래스.
+- DatagramPacket : 주고받는 패킷 클래스.
+
+### 발신자 구현
+
+우선 DatagramSocket 객체를 생성한다.
+
+<pre>
+<code>
+DatagramSocket datagramSocket = new DatagramSocket();
+</code>
+</pre>
+
+보내고자 하는 데이터를 byte[] 배열로 생성한다. 문자열인 경우 UTF-8로 인코딩해서 byte[] 배열을 얻는다.
+
+<pre>
+<code>
+byte[] byteArr = data.getBytes("UTF-8");
+</code>
+</pre>
+
+이제 데이터와 수신자 정보를 담고 있는 DatagramPacket을 생성한다. 
+생성자의 첫 번째 매개값은 보낼 데이터인 byte[] 배열이고, 두 번째 매개값은 byte[] 배열에서 보내고자 하는 항목 수이다. 전체 항목을 보내려면 length 값으로 대입한다. 세 번째 매개값은 수신자 IP와 포트 정보를 가지고 있는 SocketAddress이다. SocketAddress는 추상 클래스이므로 하위 클래스인 InetSocketAddress 객체를 생성해서 대입하면 된다. 
+
+아래 코드는 로컬 PC인 5001번을 수신자로 하는 DatagramPacket을 생성하는 코드이다.
+
+<pre>
+<code>
+byte[] byteArr = data.getBytes("UTF-8");
+DatagramPacket packet = new DatagramPacket(
+    byteArr, byteArr.length, new InetSocketAddress("localhost", 5001)
+);
+</code>
+</pre>
+
+DatagramPacket 생성 후 이것을 매개값으로 해서 DatagramSocket의 send() 메소드를 호출하면 수신자에게 데이터가 전달된다.
+
+<pre>
+<code>
+datagramSocket.send(packet);
+</code>
+</pre>
+
+더 이상 보낼 데이터가 없을 경우 DatagramSocket을 닫기 위해 close() 메소드를 호출한다.
+
+<pre>
+<code>
+datagramSocket.close();
+</code>
+</pre>
+
+아래 코드는 발신자 프로그램의 전체 코드이다.
+
+<pre>
+<code>
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
+
+public class UdpSendExample {
+    public static void main(String[] args) throws Exception{
+        DatagramSocket datagramSocket = new DatagramSocket();
+
+        System.out.println("발신 시작");
+
+        for(int i = 1; i < 3; i++){
+            String data = "message" + i;
+            byte[] byteArr = data.getBytes("UTF-8");
+            DatagramPacket packet = new DatagramPacket(byteArr, byteArr.length, new InetSocketAddress("loclahost", 5001));
+
+            datagramSocket.send(packet);
+            System.out.println("바이트 수 = " + byteArr.length + "bytes");
+        }
+
+        System.out.println("발신 종료");
+
+        datagramSocket.close();        
+    }
+}
+</code>
+</pre>
+
+### 수신자 구현
+
+수신자로 사용할 DatagramSocket 객체는 바인딩할 포트 번호를 매개값으로 저장하고 생성해야 한다.
+
+<pre>
+<code>
+DatagramSocket datagramSocket = new DatagramSocket(5001);
+</code>
+</pre>
+
+DatagramSocket 생성 후 receive() 메소드로 패킷을 읽을 준비를 한다. 해당 메소드는 패킷을 받을 때까지 블로킹 되고, 패킷이 도착하면 매개값으로 주어진 DatagrramPacket에 패킷 내용을 저장한다.
+
+<pre>
+<code>
+datagramSocket.receive(datagramPacket);
+</code>
+</pre>
+
+이제 패킷의 내용을 저장할 DatagramPacket 객체를 생성한다.
+첫 번째 매개값은 읽은 패킷 데이터를 저장할 바이트 배열이다.
+두 번째 매개값은 읽을 수 있는 최대 바이트 수로 첫 번째 바이트 배열의 크기와 같거나 작아야 한다. 일반적으로 첫 번째 바이트 배열의 크기를 준다.
+
+<pre>
+<code>
+DatagramPacket datagramPacket = new DatagramPacket(new byte[100], 100);
+</code>
+</pre>
+
+receive() 메소드로 패킷을 읽었다면 DatagramPacket의 getData() 메소드로 데이터가 저장된 바이트 배열을 얻어낼 수 있다. 그리고 getLength()를 호출해서 읽은 바이트 수를 얻을 수 있다. 받은 데이터가 인코딩된 문자열이라면 디코딩해서 문자열을 얻으면 된다.
+
+<pre>
+<code>
+String data = new String(packet.getData(), 0, packet.getLength(), "UTF-8");
+</code>
+</pre>
+
+수신자가 패킷을 받은 후 발신자에게 응답 패킷을 보내고 싶다면 발신자의 IP와 포트를 알아야 한다. DatagramPacket의 getSocketAddress()를 호출하면 발신자의 SocketAddress 객체를 얻어 낼수 있어 발신자에게 응답 패킷을 보낼 때 send() 메소드에서 이용할 수 있다.
+
+<pre>
+<code>
+SocketAddress socketAddress = packet.getSocketAddress();
+</code>
+</pre>
+
+수신자는 항상 데이터를 받을 준비를 해야 한다. 따라서 작업 스레드를 생성해서 receive() 메소드를 반복적으로 호출해야 한다. 작업 스레드를 종료하려면 receive() 메소드가 블로킹되어 있는 상태에서 DatagramSocket의 close()를 호출한다. 이 경우 receive()에서 SocketException이 발생하고, 예외 처리 코드에서 작업 스레드를 종료시키면 된다.
+
+아래 코드는 수신자 프로그램의 전체 코드이다. 실행 후 10초가 지나면 수신자를 종료한다.
+
+<pre>
+<code>
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+
+public class UdpReceiveExample extends Thread{
+    public static void main(String[] args) throws Exception{
+        DatagramSocket datagramSocket = new DatagramSocket(5001);
+
+        Thread thread = new Thread(){
+            @Override
+            public void run(){
+                System.out.println("수신 시작");
+                try{
+                    while(true){
+                        DatagramPacket packet = new DatagramPacket(new byte[100], 100);
+                        datagramSocket.receive(packet);
+
+                        String data = new String(packet.getData(), 0, packet.getLength(), "UTF-8");
+                        System.out.println("message " + packet.getSocketAddress() + " = " + data);
+                    }
+                }catch(Exception e){
+                    System.out.println("수신 종료");
+                }
+            }
+        };
+        thread.start();
+
+        Thread.sleep(10000);
+        datagramSocket.close();
+    }
+}
+</code>
+</pre>
+
 # 출처
 * [이것이 자바다](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968481475&orderClick=LAG&Kc=)
