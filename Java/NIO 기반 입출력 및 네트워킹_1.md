@@ -171,5 +171,295 @@ G:\
 
 [java.nio.file.Files 클래스](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Files.html)는 파일과 디렉토리의 생성 및 삭제 그리고 이들의 속성을 읽는 메소드를 제공한다. 속성이란 파일이나 디렉토리가 숨김인지, 디렉토리인지, 크기가 어떻게 되는지, 소유자가 누구인지에 대한 정보이다.
 
+### WatchService
+
+[WatchService](https://docs.oracle.com/javase/7/docs/api/java/nio/file/WatchService.html)는 디렉토리 내부에서 파일 생성, 삭제, 수정 등의 내용 변화를 감시하는데 사용된다. WatchService를 생성하려면 FileSystem의 newWatchService() 메소드를 호출한다.
+
+<pre>
+<code>
+WatchService watchService = FileSystems.getDefault().newWatchService();
+</code>
+</pre>
+
+WatchService 생성 후 감시가 필요한 디렉토리의 Path 객체에서 register() 메소드로 WatchService를 등록한다. 어떤 변화(생성, 삭제, 수정)를 감시할 것인지를 StandardWatchEventKinds 상수로 지정할 수 있다.
+
+<pre>
+<code>
+path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
+                            StandardWatchEventKinds.ENTRY_MODIFY,
+                            StandardWatchEventKinds.ENTRY_DELETE);
+</code>
+</pre>
+
+디렉토리(Path)에 WatchService를 등록하면 디렉토리 내부에서 변경이 발생될 경우 WatchEvent가 발생, WatchService는 해당 이벤트 정보를 가진 WatchKey를 생성하여 Queue에 넣는다. 프로그램은 무한 루프를 돌면서 WatchService의 take() 메소드를 호출하여 WatchKey가 Queue에 들어올 때까지 대기하고 있다가 WatchKey가 큐에 들어오면 WatchKey를 얻어 처리하면 된다.
+
+<pre>
+<code>
+while(true){
+    WatchKey watchKey = watchService.take(); // Queue에 WatchKey가 들어올 때까지 대기
+}
+</code>
+</pre>
+
+WatchKey를 얻고나서 pollEvents() 메소드를 호출하여 WatchEvent 리스트를 얻는다. 여러개의 파일이 동시에 변경될 수 있기 때문에 List<WatchEvent<?>>로 리턴한다. WatchEvent는 파일당 하나씩 발생한다.
+
+<pre>
+<code>
+List<WatchEvent<?>> list = watchKey.pollEvents();
+</code>
+</pre>
+
+프로그램은 WatchEvent 리스트에서 WatchEvent를 하나씩 꺼내서 이벤트의 종류와 Path 객체를 얻어낸 다음 목적에 맞게 처리한다.
+
+<pre>
+<code>
+for(WatchEvent watchEvent : list){
+    // 이벤트 종류 얻기
+    Kind kind = watchEvent.kind();
+
+    // 감지된 Path 얻기
+    Path path = (Path)watchEvent.context();
+
+    // 이벤트 종류별로 처리
+    if(kind == StandardWatchEventKinds.ENTRY_CREATE){
+        // 생성 시 처리 코드
+    }
+    else if(kind == StandardWatchEventKinds.ENTRY_MODIFY){
+        // 수정 시 처리 코드
+    }
+    else if(kind == StandardWatchEventKinds.ENTRY_DELETE){
+        // 삭제 시 처리 코드
+    }
+    else if(kind == StandardWatchEventKinds.OVERFLOW){
+        
+    }
+}
+</code>
+</pre>
+
+OVERFLOW 이벤트는 운영체제에서 이벤트가 소실 또느 버려진 경우에 발생하므로 별도의 처리 코드가 필요 없다. 따라서 CREATE, MODIFY, DELETE 이벤트만 처리하면 된다. 새로운 WatchEvent가 발생하면 Queue에 다시 들어가기 때문에 한 번 사용된 WatchKey는 reset() 메소드로 초기화해야 한다. 
+
+초기화에 성공하면 reset() 메소드는 true를 리턴하지만, 감시하는 디렉토리가 삭제되었거나 키가 더 이상 유효하지 않을 경우 false를 리턴한다. WatchKey가 더 이상 유효하지 않게 되면 무한 루프를 빠져나와 WatchService의 close() 메소드를 호출하고 종료하면 된다.
+
+<pre>
+<code>
+while(true){
+    WatchKey watchKey = watchService.take();
+    List<WatchEvent<?>> list = watchKey.pollEvents();
+    for(WatchEvent watchEvent : list){
+        ...
+    }
+    boolean valid = watchKey.reset();
+    if(!valid) { break; }
+}
+watchService.close();
+</code>
+</pre>
+
+## 버퍼
+
+NIO에서는 데이터 입출력을 위해 항상 버퍼를 사용해야 한다. 버퍼는 읽고 쓰기가 가능한 메모리 배열이다.
+
+### Buffer 종류
+
+Buffer는 저장되는 데이터 타입에 따라 ByteBuffer, CharBuffer, IntBuffer 등으로 분류된다.
+또한 어떤 메모리를 사용하느냐에 따라 Direct, NonDirect 버퍼로 분류된다.
+
+| 구분 | NonDIrect 버퍼 | Direct 버퍼 |
+| --- | --- | --- |
+| 사용하는 메모리 공간 | JVM의 힙 메모리 | 운영체제의 메모리 |
+| 버퍼 생성 시간 | 버퍼 생성이 빠르다 | 버퍼 생성이 느리다 |
+| 버퍼의 크기 | 작다 | 크다(큰 데이터를 처리할 떄 유리) |
+| 입출력 성능 | 낮다 | 높다(입출력이 빈번할 때 유리) |
+
+아래 코드는 NonDirect 버퍼와 Direct 버퍼의 성능 테스트 결과를 출력한다. 
+파일을 100번 복사하는데 걸린 시간을 측정한 결과 입출력이 빈번한 환경에서는 Direct 버퍼의 성능이 빠르다는 것을 확인할 수 있다.
+
+<pre>
+<code>
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.EnumSet;
+
+public class Main{
+    public static void main(String[] args) throws Exception {
+        Path from = Paths.get("D:/Hello/test1.txt");
+        Path to1 = Paths.get("D:/Hello/test2.txt");
+        Path to2 = Paths.get("D:/Hello/test3.txt");
+
+        long size = Files.size(from);
+
+        FileChannel fileChannel_from = FileChannel.open(from);
+        FileChannel fileChannel_to1 = FileChannel.open(to1, EnumSet.of(StandardOpenOption.CREATE, StandardOpenOption.WRITE));
+        FileChannel fileChannel_to2 = FileChannel.open(to2, EnumSet.of(StandardOpenOption.CREATE, StandardOpenOption.WRITE));
+
+        ByteBuffer nonDirectBuffer = ByteBuffer.allocate((int)size);
+        ByteBuffer direBuffer = ByteBuffer.allocateDirect((int)size);
+
+        long start, end;
+
+        start = System.nanoTime();
+        for(int i = 0; i < 100; i++){
+            fileChannel_from.read(nonDirectBuffer);
+            nonDirectBuffer.flip();
+            fileChannel_to1.write(nonDirectBuffer);
+            nonDirectBuffer.clear();
+        }
+        end = System.nanoTime();
+        System.out.println("NonDirect = " + (end-start) + "ns");
+
+        fileChannel_from.position(0);
+        start = System.nanoTime();
+        for(int i = 0; i < 100; i++){
+            fileChannel_from.read(direBuffer);
+            direBuffer.flip();
+            fileChannel_to2.write(direBuffer);
+            direBuffer.clear();
+        }
+        end = System.nanoTime();
+        System.out.println("Direct = " + (end-start) + "ns");
+
+        fileChannel_from.close();
+        fileChannel_to1.close();
+        fileChannel_to2.close();
+    }
+}
+
+결과)
+NonDirect = 2610300ns
+Direct = 1258501ns
+</code>
+</pre>
+
+### Buffer 생성
+
+NonDirect 버퍼는 Buffer 클래스의 allocate()와 wrap() 메소드를 호출한다.
+Direct 버퍼는 ByteBuffer의 allocateDirect() 메소드를 호출한다.
+
+### allocate() 메소드
+
+allocate() 메소드는 JVM 힙 메모리에 NonDirect 버퍼를 생성한다. 해당 메소드로 다양한 데이터 타입의 Buffer를 생성할 수 있다.
+
+다음은 최대 100개의 바이트를 저장하는 ByteBuffer를 생성하고, 최대 100개의 문자를 저장하는 CharBuffer를 생성하는 코드이다.
+
+<pre>
+<code>
+ByteBuffer byteBuffer = ByteBuffer.allocate(100);
+CharBuffer charBuffer = CharBuffer.allocate(100);
+</code>
+</pre>
+
+### wrap() 메소드
+
+각 타입별 Buffer 클래스는 모두 wrap() 메소드를 가지고 있다. 이 메소드는 이미 생성되어 있는 자바 배열은 래핑(wrapping)해서 Buffer 객체를 생성한다.
+자바 배열은 JVM 힙 메모리에 생성되므로 wrap()은 NonDirect 버퍼를 생성한다. 
+
+다음은 길이가 100인 byte[]를 이용해서 ByteBuffer를 생성하고, 길이가 100인 char[]를 이용해서 CharBuffer를 생성한다.
+
+<pre>
+<code>
+byte[] byteArr = new byte[100];
+ByteBuffer byteBufer = ByteBuffer.wrap(byteArr);
+
+char[] charArr = new char[100];
+CharBuffer charBuffer = CharBuffer.wrap(charArr);
+</code>
+</pre>
+
+배열의 모든 데이터가 아닌 일부 데이터만 가지고 Buffer 객체를 생성할 수도 있다. 시작 인덱스와 길이를 추가로 지정하면 된다.
+다음은 인덱스 0부터 50개만 버퍼로 생성한다.
+
+<pre>
+<code>
+byte[] byteArr = new byte[100];
+ByteBuffer byteBuffer = ByteBuffer.wrap(byteArr, 0, 50);
+
+char[] charArr = new char[100];
+CharBuffer charBuffer = CharBuffer.wrap(charArr, 0, 50);
+</code>
+</pre>
+
+CharBuffer는 CharSequence 타입의 매개값을 갖는 wrap() 메소드도 제공한다. String이 CharSequence 인터페이스를 구현했기 때문에 매개값으로 문자열을 제공해서 다음과 같이 CharBuffer를 생성할 수도 있다.
+
+<pre>
+<code>
+CharBuffer charBuffer = CharBuffer.wrap("NIO 입출력은 Buffer를 이용한다.");
+</code>
+</pre>
+
+### allocateDirect() 메소드
+
+ByteBuffer의 allocateDirect() 메소드는 운영체제(JVM 힙 메모리 바깥쪽)가 관리하는 메모리에 Direct 버퍼를 생성한다. 이 메소드는 Buffer 클래스에는 없고 ByteBuffer에서만 제공된다. 
+
+각 타입별로 Direct 버퍼를 생성하고 싶다면 먼저 ByteBuffer의 allocateDirect() 메소드로 버퍼를 생성한 다음 타입별 asCharBuffer(), asIntBuffer()와 같이 Buffer를 얻는 메소드를 추가한다. 
+
+다음은 100개의 바이트를 저장하는 다이렉트 ByteBuffer와 50개의 문자를 저장하는 다이렉트 CharBuffer, 25개의 정수를 저장하는 다이렉트 IntBuffer를 생성한다.
+char는 2바이트 크기를 가지고, int는 4바이트 크기를 가지기 때문에 초기 다이렉트 ByteBuffer 생성 크기에 따라 저장 용량이 결정된다.
+
+<pre>
+<code>
+ByteBuffer byteBuffer = ByteBuffer.allocateDirect(100);
+
+CharBuffer charBurrer = ByteBuffer.allocateDirect(100).asCharBuffer();
+
+IntBuffer intBuffer = ByteBuffer.allocateDirect(100).asIntBuffer();
+</code>
+</pre>
+
+<pre>
+<code>
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.IntBuffer;
+
+public class Main {
+    public static void main(String[] args) {
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(100);
+        System.out.println("capacity = " + byteBuffer.capacity() + " byte");
+
+        CharBuffer charBuffer = ByteBuffer.allocateDirect(100).asCharBuffer();
+        System.out.println("capacity = " + charBuffer.capacity() + " 문자");
+
+        IntBuffer intBuffer = ByteBuffer.allocateDirect(100).asIntBuffer();
+        System.out.println("capacity = " + intBuffer.capacity() + " 정수");
+    }
+}
+
+결과)
+capacity = 100 byte
+capacity = 50 문자
+capacity = 25 정수
+</code>
+</pre>
+
+### byte 해석 순서(ByteOrder)
+
+데이터를 처리할 때 바이트 처리 순서는 운영체제마다 차이가 있다.
+앞쪽 바이트부터 먼저 처리하는 것을 Big endian, 뒤쪽 바이트부터 먼저 처리하는 것을 Little endian 이라고 한다.
+
+ByteOrder 클래스의 nativeOrder() 메소드는 현재 동작하는 운영체제가 Big endian인지 Little endian인지 알려준다.
+JVM도 일종의 독립 운영체제이기 때문에 이런 문제를 취급하는데, JRE가 설치된 어떤 환경이든 JVM은 무조건 Big endian으로 동작한다. 
+
+<pre>
+<code>
+import java.nio.ByteOrder;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("OS = " + System.getProperty("os.name"));
+        System.out.println("ByteOrder = " + ByteOrder.nativeOrder());
+    }
+}
+
+결과)
+OS = Windows 10
+ByteOrder = LITTLE_ENDIAN
+</code>
+</pre>
+
 # 출처
 * [이것이 자바다](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968481475&orderClick=LAG&Kc=)
