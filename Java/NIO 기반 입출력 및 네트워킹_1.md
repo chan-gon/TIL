@@ -461,5 +461,144 @@ ByteOrder = LITTLE_ENDIAN
 </code>
 </pre>
 
+### FileChannel
+
+[FileChannel](https://docs.oracle.com/javase/7/docs/api/java/nio/channels/FileChannel.html)은 파일 읽기와 쓰기를 할 수 있다. 동기화 처리가 되어 있기 때문에 멀티 스레드 환경에서 사용해도 안전하다.
+
+### FileChannel 생성 및 닫기
+
+정적 메소드 open()을 호출해서 얻을 수 있지만, IO의 FileInputStream, FileOutputStream의 getChannel() 메소드를 호출해서 얻을 수도 있다.
+
+<pre>
+<code>
+FileChannel fileChannel = FileChannel.open(Path path, OpenOption... options);
+</code>
+</pre>
+
+첫 번째 path 매개값은 열거나 생성하고자 하는 파일의 경로를 Path 객체로 생성해서 지정한다.
+두 번째 options 매개값은 열기 옵션 값이다. StandardOpenOption의 열거 상수를 나열해주면 된다.
+
+"D:/Hello/test.txt" 파일을 생성하고 어떤 내용을 쓰고 싶다면 다음과 같이 매개값을 지정한다.
+
+<pre>
+<code>
+FileChannel fileChannel = FileChannel.open(
+    Paths.get("D:/Hello/test.txt"),
+    StandardOpenOption.CREATE_NEW,
+    StandardOpenOption.WRITE
+);
+</code>
+</pre>
+
+FileChannel을 더 이상 사용하지 않을 경우 close() 메소드를 호출한다.
+
+<pre>
+<code>
+fileChannel.close();
+</code>
+</pre>
+
+### 파일 쓰기와 읽기
+
+파일에 바이트를 쓰려면 FileChannel의 write() 메소드를 호출한다. 매개값으로 ByteBuffer 객체를 주는데, 파일에 쓰여지는 바이트는 ByteBuffer의 position ~ limit까지이다. position이 0이고 limit이 capacity와 동일하다면 ByteBuffer의 모든 바이트가 파일에 쓰여진다. write() 메소드의 리턴값은 ByteBuffer에서 파일로 쓰여진 바이트 수이다.
+
+<pre>
+<code>
+int bytesCount = fileChannel.write(ByteBuffer src);
+</code>
+</pre>
+
+아래 코드는 FileChannel을 이용해서 문자열을 "D:/Hello/test1.txt" 파일에 저장한다.
+
+<pre>
+<code>
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
+public class Main {
+    public static void main(String[] args) throws IOException{
+        Path path = Paths.get("D:/Hello/test1.txt");
+        Files.createDirectories(path.getParent());
+
+        FileChannel fileChannel = FileChannel.open(
+            path, StandardOpenOption.CREATE, StandardOpenOption.WRITE
+        );
+
+        String data = "Put some strings using by FileChannel";
+        Charset charset = Charset.defaultCharset();
+        ByteBuffer byteBuffer = charset.encode(data);
+
+        int byteCount = fileChannel.write(byteBuffer);
+        System.out.println("test1.txt = " + byteCount + " bytes written");
+
+        fileChannel.close();
+    }
+}
+
+결과)
+test1.txt = 37 bytes written
+</code>
+</pre>
+
+파일 읽기에서 파일로부터 바이트를 읽으려면 FileChannel의 read() 메소드를 호출한다. 매개값으로 ByteBuffer 객체를 주면 되는데, 파일에서 읽혀지는 바이트는 ByteBuffer의 position부터 저장된다. position이 0이면 ByteBuffer의 첫 바이트부터 저장된다.
+
+read() 메소드의 리턴값은 파일에서 ByteBuffer로 읽혀진 바이트 수이다. 한 번 읽을 수 있는 최대 바이트수는 ByteBuffer의 capacity까지이다. 리턴되는 최대값은 capacity가 된다. 더 이상 읽을 바이트가 없으면 read() 메소드는 -1을 리턴한다.
+
+<pre>
+<code>
+int bytesCount = fileChannel.read(ByteBuffer dst);
+</code>
+</pre>
+
+버퍼에 한 바이트를 저장할 때마다 position이 1씩 증가한다. read() 메소드가 -1을 리턴할 때까지 버퍼에 저장한 마지막 바이트의 위치는 position -1 인덱스이다. 
+아래 코드는 이전 예제에서 생성한 "D:/Hello/test1.txt" 파일을 읽고 콘솔에 출력한다.
+
+<pre>
+<code>
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
+public class Main {
+    public static void main(String[] args) throws IOException{
+        Path path = Paths.get("D:/Hello/test1.txt");
+
+        FileChannel fileChannel = FileChannel.open(
+            path, StandardOpenOption.READ);
+
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(100);
+
+        Charset charset = Charset.defaultCharset();
+        String data = "";
+        int byteCount;
+
+        while(true){
+            byteCount = fileChannel.read(byteBuffer);
+            if(byteCount == -1) break;
+            byteBuffer.flip();
+            data += charset.decode(byteBuffer).toString();
+            byteBuffer.clear();
+        }
+
+        fileChannel.close();
+        System.out.println(data);
+    }
+}
+
+결과)
+Put some strings using by FileChanneljava/lang/String;xpwParktKimx
+</code>
+</pre>
+
 # 출처
 * [이것이 자바다](http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788968481475&orderClick=LAG&Kc=)
