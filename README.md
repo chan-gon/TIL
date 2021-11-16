@@ -6,7 +6,9 @@
 * 주제별로 디렉토리로 구분하였고, 본문 내용은 .md 파일로 작성되었습니다.
 
 ## 분류
+
 ### Java
+### 기본
  * [메인메소드](https://github.com/chan-gon/TIL/blob/master/Java/%EB%A9%94%EC%9D%B8%EB%A9%94%EC%86%8C%EB%93%9C.md)
  * [변수와 타입](https://github.com/chan-gon/TIL/blob/master/Java/%EB%B3%80%EC%88%98%EC%99%80%20%ED%83%80%EC%9E%85.md)
  * [연산자](https://github.com/chan-gon/TIL/blob/master/Java/%EC%97%B0%EC%82%B0%EC%9E%90.md)
@@ -30,6 +32,7 @@
  * [IO 기반 입출력 및 네트워킹_2](https://github.com/chan-gon/TIL/blob/master/Java/IO%20%EA%B8%B0%EB%B0%98%20%EC%9E%85%EC%B6%9C%EB%A0%A5%20%EB%B0%8F%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%82%B9_2.md)
  * [NIO 기반 입출력 및 네트워킹](https://github.com/chan-gon/TIL/blob/master/Java/NIO%20%EA%B8%B0%EB%B0%98%20%EC%9E%85%EC%B6%9C%EB%A0%A5%20%EB%B0%8F%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%82%B9.md)
 
+### 기타
  * [함수형 인터페이스](https://github.com/chan-gon/TIL/tree/master/Java/%ED%95%A8%EC%88%98%ED%98%95%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
     * [BiFunction](https://github.com/chan-gon/TIL/blob/master/Java/%ED%95%A8%EC%88%98%ED%98%95%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/BiFunction%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4.md)
 
