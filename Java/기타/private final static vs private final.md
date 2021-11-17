@@ -3,7 +3,8 @@
 - final static : 해당 변수를 한 번만 생성. 'one constant variable per class_클래스 당 하나의 상수 변수'. 
 - final : 매 객체마다 해당 변수 생성. 'one constant variable per instance_인스턴스 당 하나의 상수 변수'.
 
-static 키워드로 생성된 변수는 해당 변수가 있는 클래스 로드 중에 초기화되며, 애플리케이션 실행 내내 메모리에 머물러 있다. 
+static 키워드로 생성된 변수는 해당 변수가 있는 클래스 로드 중에 초기화되며, 애플리케이션 실행 내내 메모리에 머물러 있다. 따라서 초기화 과정 없이 해당 변수, 메소드에 접근할 수 있다.
+
 non-static(static 키워드 없이 생성된) 변수는 새로운 객체를 생성할 때마다 초기화된다.
 
 자바 코드 컨벤션에 따르면 final static 변수 이름은 대문자(uppercase)로 작성되어야 한다.
@@ -78,6 +79,8 @@ public class ConstTest {
 
 # 참고
 * [stackoverflow](https://stackoverflow.com/questions/1415955/private-final-static-attribute-vs-private-final-attribute)
+* [Carry On Programming](https://zorba91.tistory.com/275)
+* [장인개발자를 꿈꾸는](https://devbox.tistory.com/entry/Java-static)
 
 
 
