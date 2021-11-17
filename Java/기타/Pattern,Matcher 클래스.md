@@ -7,7 +7,7 @@
 
 ## 자주 사용하는 정규 표현식
 
-![자주 사용하는 정규 표현식](./image/RegularExpression.png)
+![자주 사용하는 정규 표현식](.././image/RegularExpression.png)
 
 자바에서 정규 표현식을 사용하려면 [java.util.regex](https://docs.oracle.com/javase/8/docs/api/index.html?java/util/regex/package-summary.html) 패키지의 Pattern, Matcher 클래스를 사용한다.
 
@@ -86,7 +86,7 @@ public class Main {
 </code>
 </pre>
 
-# 출처
+# 참고
 * [코딩팩토리](https://coding-factory.tistory.com/529)
 * [codechacha](https://codechacha.com/ko/java-regex/)
 * [Mkyong](https://mkyong.com/java/java-regular-expression-examples/)
