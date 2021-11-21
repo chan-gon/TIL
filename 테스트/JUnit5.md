@@ -42,6 +42,153 @@ Java8 이상의 환경을 요구하지만, 이전 JDK 버전으로 작성된 코
 테스트 클래스, 테스트 메소드, 라이프사이클 메소드의 접근 제어자가 **public**일 필요는 없지만, **private**이 되어서는 안된다.
 일반적으로 반드시 작성해야 하는 상황이 아니라면 테스트 클래스, 테스트 메소드, 라이프사이클 메소드의 public 접근 제어자는 생략한다.
 
+## Display Names
+---
+테스트 클래스와 메소드는 @DisplayName 어노테이션을 통해 사용자가 원하는 이름으로 설정할 수 있다.
+이름은 공백(띄어쓰기), 특수문자, 이모지(emojis) 또한 표현할 수 있다.
+
+사용법은 다음과 같다.
+```
+@DisplayName("이름")
+```
+
+```
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+@DisplayName("A special test case")
+class DisplayNameDemo {
+
+    @Test
+    @DisplayName("Custom test name containing spaces")
+    void testWithDisplayNameContainingSpaces() {
+    }
+
+    @Test
+    @DisplayName("╯°□°）╯")
+    void testWithDisplayNameContainingSpecialCharacters() {
+    }
+
+    @Test
+    @DisplayName("😱")
+    void testWithDisplayNameContainingEmoji() {
+    }
+
+}
+```
+##  Display Name Generators
+---
+@DisplayNameGeneration 테스트 화면에 표시되는 테스트 이름을 설정한다. 
+만약 @DisplayName 어노테이션이 사용중이라면 @DisplayName 설정사항을 우선으로 따른다.
+
+@DisplayNameGeneration의 설정 요소들은 다음과 같다.
+
+| 이름 | 설명 |
+| --- | --- |
+| Standard | 기존 이름 사용 |
+| Simple | 매개변수가 없는 메소드의 괄호 제거 |
+| ReplaceUnderscores | 언더스코어(_)를 공백으로 변환 |
+| IndicativeSentences | 테스트 이름과 테스트를 감싸고 있는 클래스 이름을 포함하는 하나의 문장을 생성한다. |
+
+## Operating Sysytem Conditions
+---
+@EnabledOnOs 또는 @DisabledOnOs 어노테이션을 통해 특정 OS에 컨테이너, 메소드의 실행/중지 설정을 할 수 있다.
+
+```
+@Test
+@EnabledOnOs(MAC)
+void onlyOnMacOs() {
+    // ...
+}
+
+@TestOnMac
+void testOnMac() {
+    // ...
+}
+
+@Test
+@EnabledOnOs({ LINUX, MAC })
+void onLinuxOrMac() {
+    // ...
+}
+
+@Test
+@DisabledOnOs(WINDOWS)
+void notOnWindows() {
+    // ...
+}
+
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Test
+@EnabledOnOs(MAC)
+@interface TestOnMac {
+}
+```
+
+## Method Order
+---
+메소드 실행 순서가 중요한 경우 @Order(순서) 어노테이션을 통해 순서를 설정할 수 있다.
+
+```
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+@TestMethodOrder(OrderAnnotation.class)
+class OrderedTestsDemo {
+
+    @Test
+    @Order(1)
+    void nullValues() {
+        // perform assertions against null values
+    }
+
+    @Test
+    @Order(2)
+    void emptyValues() {
+        // perform assertions against empty values
+    }
+
+    @Test
+    @Order(3)
+    void validValues() {
+        // perform assertions against valid values
+    }
+
+}
+```
+
+## Repeated Tests
+---
+@RepeatedTest 어노테이션을 통해 해당 메소드의 반복 횟수를 설정할 수 있다.
+
+```
+@RepeatedTest(반복 횟수)
+```
+```
+@RepeatedTest(10)
+void repeatedTest() {
+    // ...
+}
+```
+## Parameterized Tests
+---
+Parameterized Tests는 다른 인수(arguments)로 여러번 테스트를 수행할 수 있도록 해준다. 
+@Test 어노테이션 대신 @ParameterizedTest 어노테이션을 사용하며, 반드시 하나 이상의 인수를 지정해 주어야 한다.
+
+```
+@ParameterizedTest
+@ValueSource(strings = { "racecar", "radar", "able was I ere I saw elba" })
+void palindromes(String candidate) {
+    assertTrue(StringUtils.isPalindrome(candidate));
+}
+```
+
+위 코드의 테스트를 실행하면 @ValueSource 어노테이션에 설정된 "racecar", "radar", "able was I ere I saw elba"를 테스트 메소드 palindromes의 candidate 인수의 값으로 사용한다. 
+StringUtils.isPalindrome(candidate)을 통해 회문(palindrome_앞에서 읽으나 뒤에서 읽으나 똑같은 문자열)인지 아닌지의 여부를 확인한다.
+
 ... 작성중
 
 # 출처
