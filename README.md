@@ -32,12 +32,6 @@
  * [IO 기반 입출력 및 네트워킹_2](https://github.com/chan-gon/TIL/blob/master/Java/IO%20%EA%B8%B0%EB%B0%98%20%EC%9E%85%EC%B6%9C%EB%A0%A5%20%EB%B0%8F%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%82%B9_2.md)
  * [NIO 기반 입출력 및 네트워킹](https://github.com/chan-gon/TIL/blob/master/Java/NIO%20%EA%B8%B0%EB%B0%98%20%EC%9E%85%EC%B6%9C%EB%A0%A5%20%EB%B0%8F%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%82%B9.md)
 
-### 기타
- * [함수형 인터페이스](https://github.com/chan-gon/TIL/tree/master/Java/%ED%95%A8%EC%88%98%ED%98%95%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
-    * [BiFunction](https://github.com/chan-gon/TIL/blob/master/Java/%ED%95%A8%EC%88%98%ED%98%95%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/BiFunction%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4.md)
- * [Pattern and Matcher Class](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/Pattern%2CMatcher%20%ED%81%B4%EB%9E%98%EC%8A%A4.md)
- * [private final static vs private final](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/private%20final%20static%20vs%20private%20final.md)
- * [Enum 클래스](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/Enum.md)
 ### JavaScript
  * [변수](https://github.com/chan-gon/TIL/blob/master/JavaScript/%EB%B3%80%EC%88%98.md)
  * [표현식과 반복문](https://github.com/chan-gon/TIL/blob/master/JavaScript/%ED%91%9C%ED%98%84%EC%8B%9D%EA%B3%BC%20%EB%AC%B8.md)
@@ -58,3 +52,13 @@
 
  ### 테스트
   * [JUnit5](https://github.com/chan-gon/TIL/blob/master/%ED%85%8C%EC%8A%A4%ED%8A%B8/JUnit5.md)
+
+ ### Web
+  * [HTTP 메시지](https://github.com/chan-gon/TIL/blob/master/Web/HTTP/HTTP%20%EB%A9%94%EC%8B%9C%EC%A7%80.md)
+
+### 기타
+ * [함수형 인터페이스](https://github.com/chan-gon/TIL/tree/master/Java/%ED%95%A8%EC%88%98%ED%98%95%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
+    * [BiFunction](https://github.com/chan-gon/TIL/blob/master/Java/%ED%95%A8%EC%88%98%ED%98%95%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/BiFunction%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4.md)
+ * [Pattern and Matcher Class](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/Pattern%2CMatcher%20%ED%81%B4%EB%9E%98%EC%8A%A4.md)
+ * [private final static vs private final](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/private%20final%20static%20vs%20private%20final.md)
+ * [Enum 클래스](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/Enum.md)
