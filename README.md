@@ -55,6 +55,7 @@
 
  ### Web
   * [HTTP 메시지](https://github.com/chan-gon/TIL/blob/master/Web/HTTP/HTTP%20%EB%A9%94%EC%8B%9C%EC%A7%80.md)
+  * [HTTP 상태 코드](https://github.com/chan-gon/TIL/blob/master/Web/HTTP/HTTP%20%EC%83%81%ED%83%9C%EC%BD%94%EB%93%9C.md)
 
 ### 기타
  * [함수형 인터페이스](https://github.com/chan-gon/TIL/tree/master/Java/%ED%95%A8%EC%88%98%ED%98%95%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
