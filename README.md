@@ -7,8 +7,14 @@
 ---
 ## 분류
 
+### 좋은 코드를 위한 습관
+---
+
+ * [자바 코드 컨벤션](https://naver.github.io/hackday-conventions-java/)
+ * [객체지향 생활 체조](https://developerfarm.wordpress.com/2012/02/03/object_calisthenics_summary/)
 ### Java
 ---
+
 ### 기본
  * [메인메소드](https://github.com/chan-gon/TIL/blob/master/Java/%EB%A9%94%EC%9D%B8%EB%A9%94%EC%86%8C%EB%93%9C.md)
  * [변수와 타입](https://github.com/chan-gon/TIL/blob/master/Java/%EB%B3%80%EC%88%98%EC%99%80%20%ED%83%80%EC%9E%85.md)
