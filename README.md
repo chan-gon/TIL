@@ -53,10 +53,11 @@
  * [함수형 인터페이스](https://github.com/chan-gon/TIL/tree/master/Java/%ED%95%A8%EC%88%98%ED%98%95%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4)
     * [BiFunction](https://github.com/chan-gon/TIL/blob/master/Java/%ED%95%A8%EC%88%98%ED%98%95%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/BiFunction%20%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4.md)
  * [Pattern and Matcher Class](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/Pattern%2CMatcher%20%ED%81%B4%EB%9E%98%EC%8A%A4.md)
- * [private final static vs private final](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/private%20final%20static%20vs%20private%20final.md)
+ * [private static final vs private final](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/private%20final%20static%20vs%20private%20final.md)
  * [Enum 클래스](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/Enum.md)
  * [예외](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/%EC%98%88%EC%99%B8.md)
  * [stream](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/stream.md)
+ * [자바 메모리 구조](https://github.com/chan-gon/TIL/blob/master/Java/%EA%B8%B0%ED%83%80/%EC%9E%90%EB%B0%94%20%EB%A9%94%EB%AA%A8%EB%A6%AC%20%EA%B5%AC%EC%A1%B0.md)
 
   </details>
 
