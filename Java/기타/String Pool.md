@@ -13,7 +13,6 @@ String 변수를 생성하고 원하는 값으로 초기화 후 해당 변수를
 그런데 위와 같이 String Pool에 저장된 값의 메모리 주소를 참조하는 방식은 String Literal로 값이 저장되었을 경우에만 해당된다. 
 
 ## String literal vs String object
----
 
 new() 연산자를 사용해 생성자 형태로 만들어진 String 객체는 Heap 영역에 저장되며, 생성될 때마다 서로 다른 고유의 메모리 영역(주소)을 가진다.  
 즉 값이 같더라도 다른 주소를 가지기 때문에 서로 같다(equal)고 할 수 없다.
@@ -39,7 +38,6 @@ System.out.println(fifth == sixth); // False
 ```
 
 ## Intern() 메서드
----
 
 Intern() 메서드의 기본 형태는 다음과 같다.
 ```
@@ -61,6 +59,5 @@ assertThat(constantString)
 ```
 
 ## 참고
----
 
 * [www.baeldung.com](https://www.baeldung.com/java-string-pool﻿)
