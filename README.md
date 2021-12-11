@@ -12,6 +12,7 @@
 
  * [자바 코드 컨벤션](https://naver.github.io/hackday-conventions-java/)
  * [객체지향 생활 체조](https://developerfarm.wordpress.com/2012/02/03/object_calisthenics_summary/)
+ * [효과적인 이름짓기](https://remotty.github.io/blog/2014/03/01/hyogwajeogin-ireumjisgi/)
  
  </details>
 
@@ -112,6 +113,15 @@
 <summary>목록 보기</summary>
 
   * [Repository 생성 및 연결](https://github.com/chan-gon/TIL/blob/master/Git/Repository%20%EC%83%9D%EC%84%B1%20%EB%B0%8F%20%EC%97%B0%EA%B2%B0.md)
+
+</details>
+
+## 기초지식
+
+<details>
+<summary>목록 보기</summary>
+
+ * [네이밍(이름짓기)](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EB%84%A4%EC%9D%B4%EB%B0%8D(%EC%9D%B4%EB%A6%84%20%EC%A7%93%EA%B8%B0).md)
 
 </details>
 
