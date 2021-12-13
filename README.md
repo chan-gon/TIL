@@ -115,6 +115,7 @@
 <summary>목록 보기</summary>
 
   * [Repository 생성 및 연결](https://github.com/chan-gon/TIL/blob/master/Git/Repository%20%EC%83%9D%EC%84%B1%20%EB%B0%8F%20%EC%97%B0%EA%B2%B0.md)
+  * [다른 Repository를 내가 생성한 Repository로 옮기기](https://github.com/chan-gon/TIL/blob/master/Git/%EB%8B%A4%EB%A5%B8%20Repository%EB%A5%BC%20%EB%82%B4%EA%B0%80%20%EC%83%9D%EC%84%B1%ED%95%9C%20Repository%EB%A1%9C%20%EC%98%AE%EA%B8%B0%EA%B8%B0.md)
 
 </details>
 
