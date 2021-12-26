@@ -3,7 +3,7 @@
 상태(State) 패턴은 객체가 내부 상태에 따라 동작을 변경해야 할 때 사용한다.  
 객체의 특정 상태를 클래스로 선언하고, 클래스에서는 해당 상태에서 할 수 있는 행위들을 메소드로 정의한다.
 
-![UML Diagram of State Design Pattern](./image/state_01.png)
+![UML Diagram of State Design Pattern](../image/state_01.png)
 
 - Context : 클라이언트가 상호작용하는 로직을 정의한다. 객체의 현재 상태를 정의하는데 사용되는 구체적인 상태 객체(ConcreteState)에 대한 참조를 유지한다.
 - State : 각각의 구체적인 상태 객체의 행위를 선언하는(구현하는) 인터페이스를 정의한다.
