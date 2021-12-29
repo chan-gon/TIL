@@ -130,6 +130,7 @@
 
   * [로깅 레벨, 패키지별 로깅 라이브러리 설정, 이클립스 템플릿을 통한 반복 설정 해결](https://www.youtube.com/watch?v=040Y3MBNnyw)
   * [SLF4J Logger Template for Eclipse](https://gist.github.com/xcoulon/5da14e704aabfbdb00c8)
+  * [로그 사용법](https://yangbongsoo.gitbook.io/study/undefined/log)
 
 </details>
 
