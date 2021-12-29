@@ -115,8 +115,21 @@
 <details>
 <summary>목록 보기</summary>
 
+  * [누구나 쉽게 이해할 수 있는 Git 입문](https://backlog.com/git-tutorial/kr/)
+  * [버전관리를 들어본적 없는 사람들을 위한 DVCS - Git](https://www.slideshare.net/ibare/dvcs-git)
+  * [Pro Git](http://git-scm.com/book/ko/v2)
   * [Repository 생성 및 연결](https://github.com/chan-gon/TIL/blob/master/Git/Repository%20%EC%83%9D%EC%84%B1%20%EB%B0%8F%20%EC%97%B0%EA%B2%B0.md)
   * [다른 Repository를 내가 생성한 Repository로 옮기기](https://github.com/chan-gon/TIL/blob/master/Git/%EB%8B%A4%EB%A5%B8%20Repository%EB%A5%BC%20%EB%82%B4%EA%B0%80%20%EC%83%9D%EC%84%B1%ED%95%9C%20Repository%EB%A1%9C%20%EC%98%AE%EA%B8%B0%EA%B8%B0.md)
+
+</details>
+
+ ## Logging
+
+<details>
+<summary>목록 보기</summary>
+
+  * [로깅 레벨, 패키지별 로깅 라이브러리 설정, 이클립스 템플릿을 통한 반복 설정 해결](https://www.youtube.com/watch?v=040Y3MBNnyw)
+  * [SLF4J Logger Template for Eclipse](https://gist.github.com/xcoulon/5da14e704aabfbdb00c8)
 
 </details>
 
