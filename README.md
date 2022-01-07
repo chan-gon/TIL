@@ -118,6 +118,7 @@
   * [인증의 구조](https://github.com/chan-gon/TIL/blob/master/Web/HTTP/%EC%9D%B8%EC%A6%9D%EC%9D%98%20%EA%B5%AC%EC%A1%B0.md)
   * [HTTPS](https://github.com/chan-gon/TIL/blob/master/Web/HTTP/HTTPS.md)
   * [TCP/IP](https://github.com/chan-gon/TIL/blob/master/Web/Network/TCP%20IP.md)
+  * [Web Server와 Web Application Server](https://github.com/chan-gon/TIL/blob/master/Web/Web%20Server%EC%99%80WAS.md)
 
 </details>
 
