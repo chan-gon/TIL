@@ -122,6 +122,15 @@
 
 </details>
 
+## Servlet
+
+<details>
+<summary>목록 보기</summary>
+
+  * [PrintWriter out = response.getWriter(); 의 동작 원리](https://github.com/chan-gon/TIL/blob/master/Servlet/getWriter.md)
+
+</details>
+
 
  ## Git
 
