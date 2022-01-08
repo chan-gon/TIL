@@ -1,4 +1,4 @@
-# PrintWriter out = response.getWriter(); 의 해석
+# PrintWriter out = response.getWriter(); 의 동작 원리
 
 클라이언트로부터 Servlet으로 요청이 들어오면 요청(Request)을 파악한 후 응답(Response)을 전달한다.  
 Servlet으로 들어온 요청은 대체로 텍스트(HTML) 형태로 응답을 보낸다. 따라서 아래와 같이 응답으로 내보낼 출력 스트림을 얻어내야 한다. 
