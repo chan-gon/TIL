@@ -128,6 +128,7 @@
 <summary>목록 보기</summary>
 
   * [PrintWriter out = response.getWriter(); 의 동작 원리](https://github.com/chan-gon/TIL/blob/master/Servlet/getWriter.md)
+  * [Servlet 한글 처리](https://github.com/chan-gon/TIL/blob/master/Servlet/%ED%95%9C%EA%B8%80%20%EC%B2%98%EB%A6%AC.md)
 
 </details>
 
