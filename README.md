@@ -157,6 +157,17 @@
 
 </details>
 
+## Linux
+
+<details>
+<summary>목록 보기</summary>
+
+  * [복사&붙여넣기]()
+  * [심볼릭 링크]()
+  * [tar 명령어]()
+
+</details>
+
 ## 기초지식
 
 <details>
