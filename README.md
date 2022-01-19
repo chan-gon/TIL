@@ -143,6 +143,7 @@
   * [Pro Git](http://git-scm.com/book/ko/v2)
   * [Repository 생성 및 연결](https://github.com/chan-gon/TIL/blob/master/Git/Repository%20%EC%83%9D%EC%84%B1%20%EB%B0%8F%20%EC%97%B0%EA%B2%B0.md)
   * [다른 Repository를 내가 생성한 Repository로 옮기기](https://github.com/chan-gon/TIL/blob/master/Git/%EB%8B%A4%EB%A5%B8%20Repository%EB%A5%BC%20%EB%82%B4%EA%B0%80%20%EC%83%9D%EC%84%B1%ED%95%9C%20Repository%EB%A1%9C%20%EC%98%AE%EA%B8%B0%EA%B8%B0.md)
+  * [Git 브랜치 전환](https://github.com/chan-gon/TIL/blob/master/Git/GIt%20%EB%B8%8C%EB%9E%9C%EC%B9%98%20%EC%A0%84%ED%99%98.md)
 
 </details>
 
@@ -168,6 +169,10 @@
   * [우분투 버전 확인](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%EC%9A%B0%EB%B6%84%ED%88%AC%20%EB%B2%84%EC%A0%84%20%ED%99%95%EC%9D%B8.md)
   * [Ubuntu 톰캣 설치](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/Ubuntu%20%ED%86%B0%EC%BA%A3%20%EC%84%A4%EC%B9%98.md)
   * [Ubuntu 톰캣 포트 변경](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/Ubuntu%20%ED%86%B0%EC%BA%A3%20%ED%8F%AC%ED%8A%B8%20%EB%B3%80%EA%B2%BD.md)
+  * [메이븐 프로젝트 배포 및 자동화(with 톰캣)](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%EB%A9%94%EC%9D%B4%EB%B8%90%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EB%B0%B0%ED%8F%AC%20%EB%B0%8F%20%EC%9E%90%EB%8F%99%ED%99%94(with%20%ED%86%B0%EC%BA%A3).md)
+  * [쉘 스크립트 기본](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%EC%89%98%20%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20%EA%B8%B0%EB%B3%B8.md)
+  * [톰캣 프로세스 확인](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%ED%86%B0%EC%BA%A3%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%20%ED%99%95%EC%9D%B8.md)
+
 
 </details>
 
