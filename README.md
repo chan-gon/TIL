@@ -163,7 +163,7 @@
 <details>
 <summary>목록 보기</summary>
 
-  * [복사&붙여넣기](https://github.com/chan-gon/TIL/blob/master/Linux/%EB%B3%B5%EC%82%AC%26%EB%B6%99%EC%97%AC%EB%84%A3%EA%B8%B0.md)
+  * [복사&붙여넣기](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%EB%B3%B5%EC%82%AC%26%EB%B6%99%EC%97%AC%EB%84%A3%EA%B8%B0.md)
   * [심볼릭 링크](https://github.com/chan-gon/TIL/blob/master/Linux/%EC%8B%AC%EB%B3%BC%EB%A6%AD%20%EB%A7%81%ED%81%AC.md)
   * [tar 명령어](https://github.com/chan-gon/TIL/blob/master/Linux/tar%20%EB%AA%85%EB%A0%B9%EC%96%B4.md)
   * [우분투 버전 확인](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%EC%9A%B0%EB%B6%84%ED%88%AC%20%EB%B2%84%EC%A0%84%20%ED%99%95%EC%9D%B8.md)
