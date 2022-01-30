@@ -91,3 +91,5 @@ System.out.println(member.getName()); 코드는 Member 객체의 name 필드값�
 * [Virtual Pair Programmer](https://www.youtube.com/watch?v=7IkpIQc8OCw)
 * [weekyear](https://week-year.tistory.com/141)
 * [원시타입-참조타입](https://velog.io/@gillog/%EC%9B%90%EC%8B%9C%ED%83%80%EC%9E%85-%EC%B0%B8%EC%A1%B0%ED%83%80%EC%9E%85Primitive-Type-Reference-Type)
+* [10분 테코톡🎅무민의 JVM Stack & Heap](https://www.youtube.com/watch?v=UzaGOXKVhwU)
+* [JVM Internal](https://d2.naver.com/helloworld/1230)
