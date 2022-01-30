@@ -188,8 +188,7 @@
 <details>
 <summary>목록 보기</summary>
 
- * [네이밍(이름짓기)](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EB%84%A4%EC%9D%B4%EB%B0%8D
- (%EC%9D%B4%EB%A6%84%20%EC%A7%93%EA%B8%B0).md)
+ * [네이밍(이름짓기)](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EB%84%A4%EC%9D%B4%EB%B0%8D(%EC%9D%B4%EB%A6%84%20%EC%A7%93%EA%B8%B0).md)
  * [컴파일타임과 런타임](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EC%BB%B4%ED%8C%8C%EC%9D%BC%ED%83%80%EC%9E%84%EA%B3%BC%20%EB%9F%B0%ED%83%80%EC%9E%84.md)
  * [객체지향 디자인 패턴 | Singleton](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%20%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4/Singleton.md)
  * [객체지향 디자인 패턴 | Strategy](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%20%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4/Strategy.md)
