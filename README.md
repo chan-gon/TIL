@@ -179,7 +179,7 @@
 
 </details>
 
-## Linux(Ubuntu)
+## Linux
 
 <details>
 <summary>목록 보기</summary>
