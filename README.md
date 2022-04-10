@@ -118,12 +118,12 @@
 <details>
 <summary>목록 보기</summary>
 
-  * [HTTP 메시지](https://github.com/chan-gon/TIL/blob/master/Web/HTTP/HTTP%20%EB%A9%94%EC%8B%9C%EC%A7%80.md)
-  * [HTTP 상태 코드](https://github.com/chan-gon/TIL/blob/master/Web/HTTP/HTTP%20%EC%83%81%ED%83%9C%EC%BD%94%EB%93%9C.md)
-  * [네트워크 기본 개념](https://github.com/chan-gon/TIL/blob/master/Web/Network/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%20%EA%B8%B0%EB%B3%B8%20%EA%B0%9C%EB%85%90.md)
-  * [인증의 구조](https://github.com/chan-gon/TIL/blob/master/Web/HTTP/%EC%9D%B8%EC%A6%9D%EC%9D%98%20%EA%B5%AC%EC%A1%B0.md)
-  * [HTTPS](https://github.com/chan-gon/TIL/blob/master/Web/HTTP/HTTPS.md)
-  * [TCP/IP](https://github.com/chan-gon/TIL/blob/master/Web/Network/TCP%20IP.md)
+  * [HTTP 메시지](https://github.com/chan-gon/TIL/blob/master/Web/HTTP%20%EB%A9%94%EC%8B%9C%EC%A7%80.md)
+  * [HTTP 상태 코드](https://github.com/chan-gon/TIL/blob/master/Web/HTTP%20%EC%83%81%ED%83%9C%EC%BD%94%EB%93%9C.md)
+  * [네트워크 기본 개념](https://github.com/chan-gon/TIL/blob/master/Web/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%20%EA%B8%B0%EB%B3%B8%20%EA%B0%9C%EB%85%90.md)
+  * [인증의 구조](https://github.com/chan-gon/TIL/blob/master/Web/%EC%9D%B8%EC%A6%9D%EC%9D%98%20%EA%B5%AC%EC%A1%B0.md)
+  * [HTTPS](https://github.com/chan-gon/TIL/blob/master/Web/HTTPS.md)
+  * [TCP/IP](https://github.com/chan-gon/TIL/blob/master/Web/TCP%20IP.md)
   * [Web Server와 Web Application Server](https://github.com/chan-gon/TIL/blob/master/Web/Web%20Server%EC%99%80WAS.md)
   * [Cookie 그리고 Session](https://github.com/chan-gon/TIL/blob/master/Web/Cookie%20%EA%B7%B8%EB%A6%AC%EA%B3%A0%20Session.md)
   * [웹 애플리케이션](https://github.com/chan-gon/TIL/blob/master/Web/%EC%9B%B9%20%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98.md)
