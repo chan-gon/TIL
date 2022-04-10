@@ -185,15 +185,15 @@
 <details>
 <summary>목록 보기</summary>
 
-  * [복사&붙여넣기](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%EB%B3%B5%EC%82%AC%26%EB%B6%99%EC%97%AC%EB%84%A3%EA%B8%B0.md)
+  * [복사&붙여넣기](https://github.com/chan-gon/TIL/blob/master/Linux/%EB%B3%B5%EC%82%AC%26%EB%B6%99%EC%97%AC%EB%84%A3%EA%B8%B0.md)
   * [심볼릭 링크](https://github.com/chan-gon/TIL/blob/master/Linux/%EC%8B%AC%EB%B3%BC%EB%A6%AD%20%EB%A7%81%ED%81%AC.md)
   * [tar 명령어](https://github.com/chan-gon/TIL/blob/master/Linux/tar%20%EB%AA%85%EB%A0%B9%EC%96%B4.md)
-  * [우분투 버전 확인](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%EC%9A%B0%EB%B6%84%ED%88%AC%20%EB%B2%84%EC%A0%84%20%ED%99%95%EC%9D%B8.md)
-  * [Ubuntu 톰캣 설치](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/Ubuntu%20%ED%86%B0%EC%BA%A3%20%EC%84%A4%EC%B9%98.md)
-  * [Ubuntu 톰캣 포트 변경](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/Ubuntu%20%ED%86%B0%EC%BA%A3%20%ED%8F%AC%ED%8A%B8%20%EB%B3%80%EA%B2%BD.md)
-  * [메이븐 프로젝트 배포 및 자동화(with 톰캣)](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%EB%A9%94%EC%9D%B4%EB%B8%90%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EB%B0%B0%ED%8F%AC%20%EB%B0%8F%20%EC%9E%90%EB%8F%99%ED%99%94(with%20%ED%86%B0%EC%BA%A3).md)
-  * [쉘 스크립트 기본](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%EC%89%98%20%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20%EA%B8%B0%EB%B3%B8.md)
-  * [톰캣 프로세스 확인](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%ED%86%B0%EC%BA%A3%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%20%ED%99%95%EC%9D%B8.md)
+  * [우분투 버전 확인](https://github.com/chan-gon/TIL/blob/master/Linux/%EC%9A%B0%EB%B6%84%ED%88%AC%20%EB%B2%84%EC%A0%84%20%ED%99%95%EC%9D%B8.md)
+  * [Ubuntu 톰캣 설치](https://github.com/chan-gon/TIL/blob/master/Linux/Ubuntu%20%ED%86%B0%EC%BA%A3%20%EC%84%A4%EC%B9%98.md)
+  * [Ubuntu 톰캣 포트 변경](https://github.com/chan-gon/TIL/blob/master/Linux/Ubuntu%20%ED%86%B0%EC%BA%A3%20%ED%8F%AC%ED%8A%B8%20%EB%B3%80%EA%B2%BD.md)
+  * [메이븐 프로젝트 배포 및 자동화(with 톰캣)](https://github.com/chan-gon/TIL/blob/master/Linux/%EB%A9%94%EC%9D%B4%EB%B8%90%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EB%B0%B0%ED%8F%AC%20%EB%B0%8F%20%EC%9E%90%EB%8F%99%ED%99%94(with%20%ED%86%B0%EC%BA%A3).md)
+  * [쉘 스크립트 기본](https://github.com/chan-gon/TIL/blob/master/Linux/%EC%89%98%20%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20%EA%B8%B0%EB%B3%B8.md)
+  * [톰캣 프로세스 확인](https://github.com/chan-gon/TIL/blob/master/Linux/%ED%86%B0%EC%BA%A3%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%20%ED%99%95%EC%9D%B8.md)
   * [Amazon Linux 환경에서 Java 1.8, Tomcat9, Jenkins, Redis, Maven 설치 + Nginx 설치 + Hostname 변경](https://github.com/chan-gon/TIL/blob/master/Linux/Amazon%20Linux%20%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%20Java%201.8%2C%20Tomcat9%2C%20Jenkins%2C%20Redis%2C%20Maven%20%EC%84%A4%EC%B9%98%20%2B%20Nginx%20%EC%84%A4%EC%B9%98%20%2B%20Hostname%20%EB%B3%80%EA%B2%BD.md)
 
 
