@@ -150,6 +150,7 @@
 * [XML 대신 Java 클래스 파일로 스프링 관련 설정하기](https://github.com/chan-gon/TIL/blob/master/Spring/XML%20%EB%8C%80%EC%8B%A0%20Java%20%ED%81%B4%EB%9E%98%EC%8A%A4%20%ED%8C%8C%EC%9D%BC%EB%A1%9C%20%EC%8A%A4%ED%94%84%EB%A7%81%20%EA%B4%80%EB%A0%A8%20%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0.md)
 * [@PathVariable, @RequestParam, @RequestBody, @ResponseBody](https://github.com/chan-gon/TIL/blob/master/Spring/%40PathVariable%2C%20%40RequestParam%2C%20%40RequestBody%2C%20%40ResponseBody.md)
 * [제어의 역전 그리고 의존성 주입](https://github.com/chan-gon/TIL/blob/master/Spring/%EC%A0%9C%EC%96%B4%EC%9D%98%20%EC%97%AD%EC%A0%84%20%EA%B7%B8%EB%A6%AC%EA%B3%A0%20%EC%9D%98%EC%A1%B4%EC%84%B1%20%EC%A3%BC%EC%9E%85.md)
+* [트랜잭션 설정을 통한 데이터 무결성 확보](https://github.com/chan-gon/TIL/blob/master/Spring/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%20%EC%84%A4%EC%A0%95%EC%9D%84%20%ED%86%B5%ED%95%9C%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%AC%B4%EA%B2%B0%EC%84%B1%20%ED%99%95%EB%B3%B4.md)
 
 </details>
 
@@ -193,6 +194,7 @@
   * [메이븐 프로젝트 배포 및 자동화(with 톰캣)](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%EB%A9%94%EC%9D%B4%EB%B8%90%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EB%B0%B0%ED%8F%AC%20%EB%B0%8F%20%EC%9E%90%EB%8F%99%ED%99%94(with%20%ED%86%B0%EC%BA%A3).md)
   * [쉘 스크립트 기본](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%EC%89%98%20%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%20%EA%B8%B0%EB%B3%B8.md)
   * [톰캣 프로세스 확인](https://github.com/chan-gon/TIL/blob/master/Linux(Ubuntu)/%ED%86%B0%EC%BA%A3%20%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%20%ED%99%95%EC%9D%B8.md)
+  * [Amazon Linux 환경에서 Java 1.8, Tomcat9, Jenkins, Redis, Maven 설치 + Nginx 설치 + Hostname 변경](https://github.com/chan-gon/TIL/blob/master/Linux/Amazon%20Linux%20%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%20Java%201.8%2C%20Tomcat9%2C%20Jenkins%2C%20Redis%2C%20Maven%20%EC%84%A4%EC%B9%98%20%2B%20Nginx%20%EC%84%A4%EC%B9%98%20%2B%20Hostname%20%EB%B3%80%EA%B2%BD.md)
 
 
 </details>
