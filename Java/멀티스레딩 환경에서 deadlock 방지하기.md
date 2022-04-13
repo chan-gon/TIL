@@ -68,8 +68,8 @@ public class DeadlockTest {
 }
 
 결과)
-Thread 2: Holding lock 2...
 Thread 1: Holding lock 1...
+Thread 2: Holding lock 2...
 Thread 2: Waiting for lock 1...
 Thread 1: Waiting for lock 2...
 ```
@@ -88,6 +88,8 @@ synchronized 키워드 사용의 이유는, 단 하나의 스레드만 실행할
 
 - 점유와 대기: ThreadDemo1 에서는 Lock1을 가지고 있는 동시에 Lock2를 원하고, ThreadDemo2는 Lock2를 가지고 있는 동시에 Lock1을 원한다. 
 - 환형대기: ThreadDemo1은 ThreadDemo2의 Lock2 객체를 대기하고, ThreadDemo2는 ThreadDemo1의 Lock1 객체를 대기하고 있다.
+
+먼저 ThreadDemo1이 Lock1에 접근하고 이후 Lock2에 접근해야만 ThreadDemo1이 가지고 있던 Lock1을 반환할 수 있다. 그런데 ThreadDemo2가 Lock2를 점유하고 있다. 즉 ThreadDemo1, ThreadDemo2 두 개의 스레드가 하나의 자원에 접근하려고 하기 때문에 무한 대기 상황이 발생한다.
 
 데드락을 해결하려면 데드락이 형성 조건을 충족하지 않도록 구현하면 된다.  
 아래 코드는 환형대기 조건을 만족하지 않아서 데드락이 발생하지 않았다.
