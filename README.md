@@ -44,6 +44,7 @@
  * [IO 기반 입출력 및 네트워킹_2](https://github.com/chan-gon/TIL/blob/master/Java/IO%20%EA%B8%B0%EB%B0%98%20%EC%9E%85%EC%B6%9C%EB%A0%A5%20%EB%B0%8F%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%82%B9_2.md)
  * [NIO 기반 입출력 및 네트워킹](https://github.com/chan-gon/TIL/blob/master/Java/NIO%20%EA%B8%B0%EB%B0%98%20%EC%9E%85%EC%B6%9C%EB%A0%A5%20%EB%B0%8F%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%82%B9.md)
  * [멀티스레딩 환경에서 deadlock 방지하기](https://github.com/chan-gon/TIL/blob/master/Java/%EB%A9%80%ED%8B%B0%EC%8A%A4%EB%A0%88%EB%94%A9%20%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%20deadlock%20%EB%B0%A9%EC%A7%80%ED%95%98%EA%B8%B0.md)
+* [synchronized](https://github.com/chan-gon/TIL/blob/master/Java/synchronized.md)
 
  </details>
 
