@@ -132,6 +132,7 @@
   * [웹 애플리케이션](https://github.com/chan-gon/TIL/blob/master/Web/%EC%9B%B9%20%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98.md)
   * [DNS](https://github.com/chan-gon/TIL/blob/master/Web/DNS.md)
   * [웹의 발전](https://github.com/chan-gon/TIL/blob/master/Web/%EC%9B%B9%EC%9D%98%20%EB%B0%9C%EC%A0%84.md)
+  * [OSI model](https://github.com/chan-gon/TIL/blob/master/Web/OSI%20model.md)
 
 </details>
 
