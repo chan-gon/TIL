@@ -153,7 +153,7 @@
 
 * [XML 대신 Java 클래스 파일로 스프링 관련 설정하기](https://github.com/chan-gon/TIL/blob/master/Spring/XML%20%EB%8C%80%EC%8B%A0%20Java%20%ED%81%B4%EB%9E%98%EC%8A%A4%20%ED%8C%8C%EC%9D%BC%EB%A1%9C%20%EC%8A%A4%ED%94%84%EB%A7%81%20%EA%B4%80%EB%A0%A8%20%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0.md)
 * [@PathVariable, @RequestParam, @RequestBody, @ResponseBody](https://github.com/chan-gon/TIL/blob/master/Spring/%40PathVariable%2C%20%40RequestParam%2C%20%40RequestBody%2C%20%40ResponseBody.md)
-* [제어의 역전 그리고 의존성 주입](https://github.com/chan-gon/TIL/blob/master/Spring/%EC%A0%9C%EC%96%B4%EC%9D%98%20%EC%97%AD%EC%A0%84%20%EA%B7%B8%EB%A6%AC%EA%B3%A0%20%EC%9D%98%EC%A1%B4%EC%84%B1%20%EC%A3%BC%EC%9E%85.md)
+* [제어의 역전 그리고 의존성 주입 - 1](https://github.com/chan-gon/TIL/blob/master/Spring/%EC%A0%9C%EC%96%B4%EC%9D%98%20%EC%97%AD%EC%A0%84%20%EA%B7%B8%EB%A6%AC%EA%B3%A0%20%EC%9D%98%EC%A1%B4%EC%84%B1%20%EC%A3%BC%EC%9E%85%20-%201.md)
 * [트랜잭션 설정을 통한 데이터 무결성 확보](https://github.com/chan-gon/TIL/blob/master/Spring/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%20%EC%84%A4%EC%A0%95%EC%9D%84%20%ED%86%B5%ED%95%9C%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EB%AC%B4%EA%B2%B0%EC%84%B1%20%ED%99%95%EB%B3%B4.md)
 
 </details>
