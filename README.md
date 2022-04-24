@@ -72,6 +72,16 @@
 
   </details>
 
+## JPA
+
+<details>
+<summary>목록 보기</summary>
+
+* [JPA 기본 개념]()
+* [JPA 시작하기]()
+
+</details>
+
 ## JavaScript
 
 <details>
