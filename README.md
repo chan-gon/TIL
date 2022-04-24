@@ -77,8 +77,8 @@
 <details>
 <summary>목록 보기</summary>
 
-* [JPA 기본 개념]()
-* [JPA 시작하기]()
+* [JPA 기본 개념](https://github.com/chan-gon/TIL/blob/master/JPA/jpa%20%EA%B8%B0%EB%B3%B8%20%EA%B0%9C%EB%85%90.md)
+* [JPA 시작하기](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/jpa%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.md)
 
 </details>
 
