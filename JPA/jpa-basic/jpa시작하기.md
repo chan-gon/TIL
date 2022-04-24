@@ -175,7 +175,6 @@ public class JpaMain {
         emf.close();
     }
 }
-
 ```
 
 # 참고 
