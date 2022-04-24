@@ -128,7 +128,7 @@ public class Member {
 }
 ```
 
-### 실행 메소드 작성
+### 실행 메소드 작성 - 삽입
 
 아래 실행 메소드는 DB의 Member 테이블에 매핑 객체를 통해 데이터를 삽입하는 과정을 나타냅니다.
 
@@ -175,6 +175,77 @@ public class JpaMain {
         emf.close();
     }
 }
+```
+
+### 실행 메소드 작성 - 조회, 삭제, 수정
+
+```
+public class JpaMain {
+
+    public static void main(String[] args) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+
+        EntityManager entityManager = emf.createEntityManager();
+        
+        EntityTransaction tx = entityManager.getTransaction();
+
+        Member member = new Member();
+        member.setId(3L);
+        member.setName("Kim");    
+
+        try {
+            tx.begin();
+
+            // 조회
+            Member findMember = entityManager.find(Member.class, 1L);
+            // 조회한 객체 값 가져오기
+            findMember.getName();
+
+            // 삭제
+            findMember.remove(findMember);
+
+            // 수정
+            findMember.setName("수정한 값");
+
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            entityManager.close();
+        }
+        emf.close();
+    }
+}
+```
+
+- 조회 작업 시 EntityManager 인스턴스의 find() 메소드를 사용하는 것을 볼 수 있는데요, 이는 자바 컬렉션과 같이 자신이 원하는 객체를 담았다가 필요한 것을 콕 집어서 꺼내는 것이라고 생각하면 됩니다.  
+
+- 삭제 작업은 remove() 메소드를 호출하는데, 이 메소드는 객체를 인자값으로 받습니다. 즉 삭제할 객체를 인자값으로 넣어주면 자동으로 delete 쿼리문이 생성되어 해당 객체가 테이블에서 삭제됩니다.
+
+- 수정 작업은 조회된 객체를 수정하는 작업을 하면 됩니다. 재미있는 사실은, 값 수정만(set 메소드 사용) 해도 자동으로 update 쿼리문이 생성되어 수정한 대로 테이블에 반영됩니다. 수정 작업 후에 persist() 메소드를 호출해서 영구 반영 작업을 해야 하는것이 아닌가? 생각할 수 있지만, 그렇게 하지 않아도 됩니다. 트랜잭션 커밋 시점(tx.commit())에서 JPA는 호출, 수정, 삭제 등의 작업을 모두 체크한 뒤 변경 사항이 있다면 변경 사항에 맞는 쿼리문을 생성한 후 트랜잭션 커밋이 실행됩니다. 그래서 persist() 메소드가 필요 없는 것입니다.
+
+### 주의사항
+
+- EntityManagerFactory는 DB당 하나만 생성해서 애플리케이션 전체에서 공유한다.
+
+- EntityManager는 요청이 올 때마다 생성/제거를 반복하는 방식으로 동작한다. 그래서 하나만 생성해서 여러 스레드에서 공유하는 방식으로 사용하면 안된다.(스레드간 공유 X)
+
+- JPA의 모든 데이터 변경은 트랜잭션 안에서 실행해야 한다는 사실을 명심할 것.
+
+### JPQL
+
+앞서 조회 기능을 수행하는 코드를 통해 단순한 조회 방법을 알아보았습니다.(**Member findMember = entityManager.find(Member.class, 1L);**)  
+그런데 만약 특정 번호, 성별, 나이와 같은 **조금 더 구체적인 조건이 붙은 조회**에 대한 로직은 어떻게 구현해야 할까요? 이 때 JPQL이 등장합니다. JPQL은 SQL을 추상화한 객체 지향 쿼리 언어로서 JPA만으로는 버거운, 복잡한 쿼리문을 고민해야 할 때 도움을 주는 녀석입니다. **객체지향 쿼리 언어**라는 말은 쿼리문 작성을 엔티티 객체를 대상으로 작성한다는 의미입니다. 데이터베이스 테이블을 대상으로 쿼리문을 작성하는 SQL과는 상반된 특성을 가지고 있습니다.
+
+예를 들어 Member 테이블의 모든 데이터를 호출하되 최초 10개 데이터만 가져오도록 하는 페이징과 유사한 요청을 하고 싶다면 아래와 같은 코드 작성이 가능합니다.  
+거기에 더하여 persistence.xml 설정에서 hibernate.dialect 설정을 DB에 맞게 교체한다면 해당 DB 맞춤 쿼리문이 생성됩니다. 코드 한 줄로 까다로운 쿼리문 작성이 가능해진 것입니다.  
+그리고 아래 로직에서 생성한 쿼리문 **select m from Member as m**은 데이터베이스의 Member 테이블이 아니라 자바 클래스인 Member 객체를 대상으로 작성된 쿼리문입니다. 그래서 쿼리 결과를 컬렉션 객체에 담아서 루핑 작업을 하는 등의 구현이 가능합니다.
+
+```
+entityManager.createQuery("select m from Member as m")
+                            .setFirstResult(1)
+                            .setMaxResults(10)
+                            .getResultList();
 ```
 
 # 참고 
