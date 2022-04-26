@@ -79,6 +79,7 @@
 
 * [JPA 기본 개념](https://github.com/chan-gon/TIL/blob/master/JPA/jpa%20%EA%B8%B0%EB%B3%B8%20%EA%B0%9C%EB%85%90.md)
 * [JPA 시작하기](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/jpa%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.md)
+* [영속성 컨텍스트](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%EC%98%81%EC%86%8D%EC%84%B1%20%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8.md)
 
 </details>
 
