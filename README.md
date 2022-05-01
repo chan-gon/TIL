@@ -83,6 +83,7 @@
 * [엔티티 매핑](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%EC%97%94%ED%8B%B0%ED%8B%B0%20%EB%A7%A4%ED%95%91.md)
 * [필드와 컬럼 매핑](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%ED%95%84%EB%93%9C%EC%99%80%20%EC%BB%AC%EB%9F%BC%20%EB%A7%A4%ED%95%91.md)
 * [기본 키 매핑](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%EA%B8%B0%EB%B3%B8%20%ED%82%A4%20%EB%A7%A4%ED%95%91.md)
+* [연관관계 매핑](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84%20%EB%A7%A4%ED%95%91.md)
 
 </details>
 
