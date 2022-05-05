@@ -86,6 +86,7 @@
 * [연관관계 매핑](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84%20%EB%A7%A4%ED%95%91.md)
 * [양방향 연관관계와 연관관계의 주인](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%EC%96%91%EB%B0%A9%ED%96%A5%20%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84%EC%99%80%20%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84%EC%9D%98%20%EC%A3%BC%EC%9D%B8.md)
 * [다양한 연관관계 매핑](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%EB%8B%A4%EC%96%91%ED%95%9C%20%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84%20%EB%A7%A4%ED%95%91.md)
+* [상속관계 매핑](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%EC%83%81%EC%86%8D%EA%B4%80%EA%B3%84%20%EB%A7%A4%ED%95%91.md)
 
 </details>
 
