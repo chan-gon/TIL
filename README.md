@@ -88,6 +88,8 @@
 * [다양한 연관관계 매핑](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%EB%8B%A4%EC%96%91%ED%95%9C%20%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84%20%EB%A7%A4%ED%95%91.md)
 * [상속관계 매핑](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%EC%83%81%EC%86%8D%EA%B4%80%EA%B3%84%20%EB%A7%A4%ED%95%91.md)
 * [MappedSuperclass](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/MappedSuperclass.md)
+* [프록시와 연관관계](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%ED%94%84%EB%A1%9D%EC%8B%9C%EC%99%80%20%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84%20%EA%B4%80%EB%A6%AC.md)
+* [즉시 로딩과 지연 로딩](https://github.com/chan-gon/TIL/blob/master/JPA/jpa-basic/%EC%A6%89%EC%8B%9C%20%EB%A1%9C%EB%94%A9%EA%B3%BC%20%EC%A7%80%EC%97%B0%20%EB%A1%9C%EB%94%A9.md)
 
 </details>
 
