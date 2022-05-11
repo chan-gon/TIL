@@ -98,7 +98,7 @@ synchronized 키워드 사용의 이유는, 단 하나의 스레드만 실행할
 
 언뜻 이전 코드와 동일해 보이지만, ThreadDemo2의 코드 동작 순서가 Lock2 -> Lock1에서 Lock1 -> Lock2로 변경되었다.  
 
-이전 코드는 Thread1이 Lock1을 점유하고 잠시 정지했다가 Lock2를 점유해야 한다. 그리고 ThreadDemo2는 Lock2를 점유하고 잠시 정지했다가 Lock1을 점유해야 한다. 즉 Thread1, 2 서로가 서로를 기다리고 있는 환형대기 상태이기 때문에 데드락이 발생했다. 그래서 Thread1, 2가 순차적으로 Lock1, Lock2를 점유할 수 있도록 순서를 조정하면 환형대기 문제를 방지할 수 있기 때문에 데드락이 발생하지 않았다.
+이전 코드는 Thread1이 Lock1을 점유하고 잠시 정지했다가 Lock2를 점유해야 한다. 그리고 ThreadDemo2는 Lock2를 점유하고 잠시 정지했다가 Lock1을 점유해야 한다. 즉 Thread1, 2 서로가 서로를 기다리고 있는 환형대기 상태이기 때문에 데드락이 발생했다. 그래서 Thread1, 2가 순차적으로 Lock1, Lock2를 점유할 수 있도록 순서를 조정하면 환형대기 문제를 방지할 수 있기 때문에 데드락이 발생하지 않는다.
 
 ```
 public class DeadlockTest {
