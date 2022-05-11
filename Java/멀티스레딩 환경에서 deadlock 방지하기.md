@@ -1,6 +1,6 @@
 # 멀티스레딩 환경에서 deadlock 방지하기
 
-프로세스는 (매우 간단하게 말하면)현재 실행 중인 프로그램을 의미한다. 당장 **Ctrl + Shift + Esc**를 누르면 작업 관리자 창에서 현재 실행 중인 프로세스를 확인 할 수 있다.   
+프로세스는 (매우 간단하게 말하면)현재 실행 중인 프로그램을 의미한다. 당장 **Ctrl + Shift + Esc**(Windows 기준)를 누르면 작업 관리자 창에서 현재 실행 중인 프로세스를 확인 할 수 있다.   
 
 스레드는 프로세스 내부의 작업을 수행하는 주체이다.  
 프로세스에 하나 이상의 스레드가 존재하며, 두 개 이상의 스레드가 존재하는 경우 멀티 스레드라고 말한다.  
@@ -40,9 +40,10 @@ public class DeadlockTest {
         synchronized (Lock1) {
            System.out.println("Thread 1: Holding lock 1...");
            
-           try { Thread.sleep(10); }
-           catch (InterruptedException e) {}
-           System.out.println("Thread 1: Waiting for lock 2...");
+           try { 
+              Thread.sleep(10); 
+           } catch (InterruptedException e) {}
+               System.out.println("Thread 1: Waiting for lock 2...");
            
            synchronized (Lock2) {
               System.out.println("Thread 1: Holding lock 1 & 2...");
@@ -55,9 +56,10 @@ public class DeadlockTest {
         synchronized (Lock2) {
            System.out.println("Thread 2: Holding lock 2...");
            
-           try { Thread.sleep(10); }
-           catch (InterruptedException e) {}
-           System.out.println("Thread 2: Waiting for lock 1...");
+           try { 
+               Thread.sleep(10); 
+               } catch (InterruptedException e) {}
+               System.out.println("Thread 2: Waiting for lock 1...");
            
            synchronized (Lock1) {
               System.out.println("Thread 2: Holding lock 1 & 2...");
@@ -93,6 +95,10 @@ synchronized 키워드 사용의 이유는, 단 하나의 스레드만 실행할
 
 데드락을 해결하려면 데드락이 형성 조건을 충족하지 않도록 구현하면 된다.  
 아래 코드는 환형대기 조건을 만족하지 않아서 데드락이 발생하지 않았다.
+
+언뜻 이전 코드와 동일해 보이지만, ThreadDemo2의 코드 동작 순서가 Lock2 -> Lock1에서 Lock1 -> Lock2로 변경되었다.  
+
+이전 코드는 Thread1이 Lock1을 점유하고 잠시 정지했다가 Lock2를 점유해야 한다. 그리고 ThreadDemo2는 Lock2를 점유하고 잠시 정지했다가 Lock1을 점유해야 한다. 즉 Thread1, 2 서로가 서로를 기다리고 있는 환형대기 상태이기 때문에 데드락이 발생했다. 그래서 Thread1, 2가 순차적으로 Lock1, Lock2를 점유할 수 있도록 순서를 조정하면 환형대기 문제를 방지할 수 있기 때문에 데드락이 발생하지 않았다.
 
 ```
 public class DeadlockTest {
