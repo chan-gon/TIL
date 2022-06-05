@@ -266,6 +266,7 @@
 <summary>목록 보기</summary>
 
  * [운영체제 개요](https://github.com/chan-gon/TIL/blob/master/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%20%EA%B0%9C%EC%9A%94.md)
+ * [프로세스 관리](https://github.com/chan-gon/TIL/blob/master/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%20%EA%B4%80%EB%A6%AC.md)
 
 </details>
 
