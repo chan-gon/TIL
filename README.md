@@ -193,6 +193,7 @@
   * [Repository 생성 및 연결](https://github.com/chan-gon/TIL/blob/master/Git/Repository%20%EC%83%9D%EC%84%B1%20%EB%B0%8F%20%EC%97%B0%EA%B2%B0.md)
   * [다른 Repository를 내가 생성한 Repository로 옮기기](https://github.com/chan-gon/TIL/blob/master/Git/%EB%8B%A4%EB%A5%B8%20Repository%EB%A5%BC%20%EB%82%B4%EA%B0%80%20%EC%83%9D%EC%84%B1%ED%95%9C%20Repository%EB%A1%9C%20%EC%98%AE%EA%B8%B0%EA%B8%B0.md)
   * [Git 브랜치 전환](https://github.com/chan-gon/TIL/blob/master/Git/GIt%20%EB%B8%8C%EB%9E%9C%EC%B9%98%20%EC%A0%84%ED%99%98.md)
+  * [Repository 가져와서 수정 후 다시 Push](https://github.com/chan-gon/TIL/blob/master/Git/Repository%20%EA%B0%80%EC%A0%B8%EC%99%80%EC%84%9C%20%EC%88%98%EC%A0%95%20%ED%9B%84%20%EB%8B%A4%EC%8B%9C%20Push.md)
 
 </details>
 
@@ -231,14 +232,15 @@
 <details>
 <summary>목록 보기</summary>
 
- * [네이밍(이름짓기)](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EB%84%A4%EC%9D%B4%EB%B0%8D(%EC%9D%B4%EB%A6%84%20%EC%A7%93%EA%B8%B0).md)
- * [컴파일타임과 런타임](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EC%BB%B4%ED%8C%8C%EC%9D%BC%ED%83%80%EC%9E%84%EA%B3%BC%20%EB%9F%B0%ED%83%80%EC%9E%84.md)
- * [객체지향 디자인 패턴 | Singleton](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%20%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4/Singleton.md)
- * [객체지향 디자인 패턴 | Strategy](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%20%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4/Strategy.md)
- * [객체지향 디자인 패턴 | State](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%20%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4/State.md)
- * [객체지향 디자인 패턴 | Command](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%20%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4/Command.md)
+ * [객체지향 디자인 패턴 | Singleton](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/Creational%20Pattern/Singleton.md)
+ * [객체지향 디자인 패턴 | Strategy](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/Behavioral%20Pattern/Strategy.md)
+ * [객체지향 디자인 패턴 | State](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/Behavioral%20Pattern/State.md)
+ * [객체지향 디자인 패턴 | Command](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/Behavioral%20Pattern/Command.md)
  * [객체지향 디자인 패턴 | Factory Method](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/Creational%20Pattern/FactoryMethod.md)
  * [응집도와 결합도](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EC%9D%91%EC%A7%91%EB%8F%84%EC%99%80%20%EA%B2%B0%ED%95%A9%EB%8F%84.md)
+  * [네이밍(이름짓기)](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EB%84%A4%EC%9D%B4%EB%B0%8D(%EC%9D%B4%EB%A6%84%20%EC%A7%93%EA%B8%B0).md)
+ * [컴파일타임과 런타임](https://github.com/chan-gon/TIL/blob/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/%EC%BB%B4%ED%8C%8C%EC%9D%BC%ED%83%80%EC%9E%84%EA%B3%BC%20%EB%9F%B0%ED%83%80%EC%9E%84.md)
+ * [REST](https://github.com/chan-gon/TIL/tree/master/%EA%B8%B0%EC%B4%88%EC%A7%80%EC%8B%9D/REST)
 
 </details>
 
