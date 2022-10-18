@@ -1,6 +1,7 @@
 ## REST
 
-REST의 특징적인 URI 구조 말고 REST가 지향하는 프로그램의 설계 방식에 집중한 글.
+How do I improve HTTP without breaking the Web?  
+REST는 서버와 클라이언트의 독립적인 진화를 목적으로 한다. 
 
 ## Stateless
 
@@ -8,10 +9,15 @@ REST의 특징적인 URI 구조 말고 REST가 지향하는 프로그램의 설�
 
 Stateless 특성을 실현하려면 서버에 전달하는 각 요청에는 서버가 해당 요청을 제대로 수행할 수 있는 모든 정보가 포함되어 있어야 한다.
 
-... 작성중 ...
+## Client-Server 구조
+
+Client와 Server는 서로 독립적으로 동작한다. Client는 요청만, Server는 요청에 대한 처리만 한다. 이런 관심사의 분리(Separation of concerns) 원칙을 고수함으로써 각 컴포넌트들의 유지보수성, 확장성이 증대된다.
+
+
 
 
 # 참고
 - https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf
 - https://restfulapi.net/rest-architectural-constraints/#layered-system
 - https://medium.com/extend/what-is-rest-a-simple-explanation-for-beginners-part-2-rest-constraints-129a4b69a582
+- https://www.youtube.com/watch?v=RP_f5dMoHFc&list=RDLVRP_f5dMoHFc&start_radio=1&rv=RP_f5dMoHFc&t=4&ab_channel=naverd2
